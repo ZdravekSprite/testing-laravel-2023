@@ -38,4 +38,15 @@
       </x-primary-button>
     </div>
   </form>
+  <div class="flex justify-between items-center mt-3">
+    <hr class="w-full"> <span class="p-2 text-gray-400 mb-1">OR</span>
+    <hr class="w-full">
+  </div>
+  <div class="flex items-center justify-end mt-4">
+    <x-underline-link href="login/google">
+      <strong>{{ __('Login') }}</strong>
+      <span>{{ __('with') }}</span>
+      <strong>Google</strong>
+    </x-underline-link>
+  </div>
 </x-guest-layout>
