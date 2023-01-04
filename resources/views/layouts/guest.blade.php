@@ -20,12 +20,19 @@
     @if (Route::has('login'))
     <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
       @auth
-      <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+      <x-underline-link :href="url('/dashboard')">
+        Dashboard
+      </x-underline-link>
       @else
-      <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+      <x-underline-link :href="route('login')">
+        Log in
+      </x-underline-link>
 
       @if (Route::has('register'))
-      <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+      <span class="p-1 m-1"></span>
+      <x-underline-link :href="route('register')">
+        Register
+      </x-underline-link>
       @endif
       @endauth
     </div>
@@ -50,7 +57,7 @@
             &copy; <a href="mailto:zdravek.sprite@gmail.com">Zdravek Sprite</a>
           </div>
         </div>
-
+        <span class="p-1 m-1"></span>
         <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
           Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
         </div>
