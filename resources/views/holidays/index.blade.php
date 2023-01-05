@@ -7,11 +7,11 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <div class="p-6 bg-white border-b border-gray-200">
+      <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+        <div class="max-w-xxl">
           @if(count($holidays) > 0)
           @foreach($holidays as $day)
-          <div class="container">
+          <div class="text-sm mt-2 text-gray-800 dark:text-gray-400">
             {{$day->date->format('d.m.Y')}} {{$day->name}} 
           </div>
           @endforeach
