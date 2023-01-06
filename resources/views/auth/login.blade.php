@@ -44,10 +44,10 @@
     <hr class="w-full">
   </div>
   <div class="flex items-center justify-end m-4">
-    <x-underline-link href="login/google">
+    <x-underline-link href="login/facebook">
       <strong>{{ __('Login') }}</strong>
       <span>{{ __('with') }}</span>
-      <strong>Google</strong>
+      <strong>Facebook</strong>
     </x-underline-link>
     <span class="p-1 m-1"></span>
     <x-underline-link href="login/google">

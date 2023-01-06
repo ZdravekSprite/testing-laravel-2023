@@ -11,12 +11,22 @@
 
     <div>
       <p class="mt-1 text-sm text-gray-900 dark:text-gray-400">
+        {{ $user->facebook_id }}
+      </p>
+      <p class="mt-1 text-sm text-gray-900 dark:text-gray-400">
+        {{ $user->facebook_avatar }}
+      </p>
+      <img src="{{ $user->facebook_avatar }}" class="user-image" alt="User Image">
+    </div>
+
+    <div>
+      <p class="mt-1 text-sm text-gray-900 dark:text-gray-400">
         {{ $user->google_id }}
       </p>
       <p class="mt-1 text-sm text-gray-900 dark:text-gray-400">
         {{ $user->google_avatar }}
       </p>
-      <img src="{{ $user->google_avatar }}"  class="user-image" alt="User Image">
+      <img src="{{ $user->google_avatar }}" class="user-image" alt="User Image">
     </div>
 
 </section>

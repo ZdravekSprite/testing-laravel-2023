@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
+use Illuminate\Support\Facades\File;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +44,7 @@ Route::get('login/{provider}', function ($provider) {
 })->name('{provider}Login');
 Route::get('login/{provider}/callback', function ($provider) {
   $social_user = Socialite::driver($provider)->user();
+  //dd($social_user);
   // $user->token
   $user = User::firstOrCreate([
     'email' => $social_user->getEmail(),
@@ -68,9 +71,8 @@ Route::get('login/{provider}/callback', function ($provider) {
     } else {
       $avatar = $social_user->getAvatar();
     }
-
     if (!$user[$provider . "_avatar"]) {
-      $user[$provider . "_avatar"] = $social_user->getAvatar();
+      $user[$provider . "_avatar"] = $avatar;
     }
   }
   $user->save();
