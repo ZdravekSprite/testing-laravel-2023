@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HolidayController;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -44,8 +45,6 @@ Route::get('login/{provider}', function ($provider) {
 })->name('{provider}Login');
 Route::get('login/{provider}/callback', function ($provider) {
   $social_user = Socialite::driver($provider)->user();
-  //dd($social_user);
-  // $user->token
   $user = User::firstOrCreate([
     'email' => $social_user->getEmail(),
   ]);
@@ -66,7 +65,6 @@ Route::get('login/{provider}/callback', function ($provider) {
 
       $res = curl_exec($ch);
       $redirectedUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
-      //$avatar = ltrim($redirectedUrl,"https://");
       $avatar = $redirectedUrl;
     } else {
       $avatar = $social_user->getAvatar();
@@ -74,6 +72,10 @@ Route::get('login/{provider}/callback', function ($provider) {
     if (!$user[$provider . "_avatar"]) {
       $user[$provider . "_avatar"] = $avatar;
     }
+  }
+  if (!$user->roles->pluck('name')->contains('socialuser')) {
+    $socialUserRole = Role::where('name', 'socialuser')->first();
+    $user->roles()->attach($socialUserRole);
   }
   $user->save();
   Auth::Login($user, true);
