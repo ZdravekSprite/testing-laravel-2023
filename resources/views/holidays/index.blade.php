@@ -17,7 +17,7 @@
             @endif
           @endforeach
         @else
-        <p> No holidays found</p>
+          <x-text-div>No holidays found</x-text-div>
         @endif
       </x-bg-div>
     </div>

@@ -7,8 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
-
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,3 +84,7 @@ Route::get('login/{provider}/callback', function ($provider) {
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('{provider}Login');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('{provider}Callback');
 */
+
+Route::prefix('admin')->middleware(['auth', 'auth.admin'])->name('admin.')->group(function () {
+  Route::resource('/users', UserController::class, ['except' => ['show', 'create', 'store']]);
+});

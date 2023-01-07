@@ -29,7 +29,6 @@
       </x-underline-link>
 
       @if (Route::has('register'))
-      <span class="p-1 m-1"></span>
       <x-underline-link :href="route('register')">
         Register
       </x-underline-link>
