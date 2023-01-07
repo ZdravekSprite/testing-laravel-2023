@@ -3,13 +3,23 @@
     {{ __('Dashboard') }}
   </x-slot>
 
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <x-bg-div>
-        <x-text-div>
-          {{ __("You're logged in!") }}
-        </x-text-div>
-      </x-bg-div>
-    </div>
-  </div>
+  <x-bg-div>
+    <x-text-div>
+      {{ __("You're logged in!") }}
+    </x-text-div>
+  </x-bg-div>
+  @hasrole('superadmin')
+  <x-bg-div>
+    <x-text-div>
+      {{ __("You're super admin!") }}
+    </x-text-div>
+  </x-bg-div>
+  @endhasrole
+  @hasrole('admin')
+  <x-bg-div>
+    <x-text-div>
+      {{ __("You're admin!") }}
+    </x-text-div>
+  </x-bg-div>
+  @endhasrole
 </x-app-layout>
