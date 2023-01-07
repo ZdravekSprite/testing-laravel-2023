@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HolidayController;
+use App\Http\Controllers\Admin\ImpersonateController;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -85,6 +86,8 @@ Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name(
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('{provider}Callback');
 */
 
+Route::get('admin/impersonate/stop', [ImpersonateController::class, 'stop'])->name('admin.impersonate.stop');
 Route::prefix('admin')->middleware(['auth', 'auth.admin'])->name('admin.')->group(function () {
   Route::resource('/users', UserController::class, ['except' => ['show', 'create', 'store']]);
+  Route::get('/impersonate/{id}', [ImpersonateController::class, 'start'])->name('impersonate.start');
 });

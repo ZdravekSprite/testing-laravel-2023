@@ -23,6 +23,11 @@
             <a class="float-left" href="{{ route('admin.users.edit', $user->id) }}" title="{{ __('Izmjeni') }}">
               <x-icon-pen width="18" height="18" fill="currentColor" />
             </a>
+            @hasrole('superadmin')
+            <a class="float-left" href="{{ route('admin.impersonate.start', $user->id) }}" title="{{ __('Impersonate') }}">
+              <x-icon-person width="18" height="18" fill="currentColor" />
+            </a>
+            @endhasrole
             <a class="float-right" href="{{ route('admin.users.destroy', $user) }}" onclick="event.preventDefault();
 document.getElementById('delete-form-{{ $user->id }}').submit();" title="Izbriši">
               <x-icon-trash width="18" height="18" fill="currentColor" />

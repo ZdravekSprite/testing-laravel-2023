@@ -16,6 +16,13 @@
             {{ __('Dashboard') }}
           </x-nav-link>
         </div>
+        @impersonate
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('admin.impersonate.stop')">
+            {{ __('Stop Impersonating') }}
+          </x-nav-link>
+        </div>
+        @endimpersonate
         @hasrole('superadmin')
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
