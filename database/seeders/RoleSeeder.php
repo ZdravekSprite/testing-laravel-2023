@@ -17,21 +17,24 @@ class RoleSeeder extends Seeder
    */
   public function run()
   {
+    DB::table('role_user')->truncate();
     Role::truncate();
-    Role::create(['name' => 'superadmin']);
+    Role::create(['name' => 'superadmin', 'description' => 'Super Admin']);
     Role::create(['name' => 'admin']);
     Role::create(['name' => 'user']);
     Role::create(['name' => 'socialuser']);
     Role::create(['name' => 'blockeduser']);
-    DB::table('role_user')->truncate();
     $superadminRole = Role::where('name', 'superadmin')->first();
     $adminRole = Role::where('name', 'admin')->first();
-    $super_admin = User::create([
-      'name' => env('SUPER_ADMIN_NAME', 'Super Admin'),
-      'email' =>  env('SUPER_ADMIN_EMAIL', 'super@admin.com'),
-      'password' => Hash::make(env('SUPER_ADMIN_PASS', 'password')),
-      'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg'
-    ]);
+    $super_admin = User::where('email', env('SUPER_ADMIN_EMAIL', 'super@admin.com'))->firstOrFail();
+    if (!$super_admin) {
+      $super_admin = User::create([
+        'name' => env('SUPER_ADMIN_NAME', 'Super Admin'),
+        'email' =>  env('SUPER_ADMIN_EMAIL', 'super@admin.com'),
+        'password' => Hash::make(env('SUPER_ADMIN_PASS', 'password')),
+        'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg'
+      ]);
+    }
     $super_admin->roles()->attach($superadminRole);
     $super_admin->roles()->attach($adminRole);
   }

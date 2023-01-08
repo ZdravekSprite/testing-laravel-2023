@@ -72,6 +72,9 @@ Route::get('login/{provider}/callback', function ($provider) {
     if (!$user[$provider . "_avatar"]) {
       $user[$provider . "_avatar"] = $avatar;
     }
+    if (!$user["avatar"]) {
+      $user["avatar"] = $avatar;
+    }
   }
   if (!$user->roles->pluck('name')->contains('socialuser')) {
     $socialUserRole = Role::where('name', 'socialuser')->first();

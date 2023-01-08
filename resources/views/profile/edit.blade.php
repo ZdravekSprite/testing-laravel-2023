@@ -19,6 +19,7 @@
         @include('profile.partials.update-avatar-form')
       </x-bg-div>
 
+      @if ($user->password)
       <x-bg-div>
         @include('profile.partials.update-password-form')
       </x-bg-div>
@@ -26,6 +27,7 @@
       <x-bg-div>
         @include('profile.partials.delete-user-form')
       </x-bg-div>
+      @endif
     </div>
   </div>
 </x-app-layout>

@@ -1,7 +1,7 @@
 @props(['value', 'density' => 'normal'])
 
 @php
-$textClasses = 'text-sm mt-2
+$textClasses = 'text-sm mt-2';
 switch ($density) {
   case 'high':
     $textClasses .= ' text-gray-900 dark:text-white';

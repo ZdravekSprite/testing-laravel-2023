@@ -18,6 +18,7 @@ class ProfileController extends Controller
    */
   public function edit(Request $request)
   {
+    //dd($request->user());
     return view('profile.edit', [
       'user' => $request->user(),
       'roles' => Role::all(),
@@ -59,6 +60,7 @@ class ProfileController extends Controller
 
     Auth::logout();
 
+    $user->roles()->detach();
     $user->delete();
 
     $request->session()->invalidate();
