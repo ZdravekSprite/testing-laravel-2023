@@ -21,9 +21,9 @@
       <x-p :value="__('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.')" />
 
       <div class="mt-6">
-        <x-input-label for="password" value="Password" class="sr-only" />
-        <x-text-input id="password" name="password" type="password" class="mt-1 block w-3/4" placeholder="Password" />
-        <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+        <x-input-label for="delete_password" value="Password" class="sr-only" />
+        <x-text-input id="delete_password" name="password" type="password" class="mt-1 block w-3/4" placeholder="Password" />
+        <x-input-error :messages="$errors->userDeletion->get('delete_password')" class="mt-2" />
       </div>
 
       <div class="mt-6 flex justify-end">

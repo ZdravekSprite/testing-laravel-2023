@@ -1,0 +1,8 @@
+/* custom/laravel-form-components.css */
+
+bg1 {
+    @apply m-5;
+    
+    /* default styles from the package */
+    /*@apply bg-slate-50 cursor-not-allowed;*/
+}

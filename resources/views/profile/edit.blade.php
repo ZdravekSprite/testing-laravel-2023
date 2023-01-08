@@ -9,6 +9,12 @@
         @include('profile.partials.update-profile-information-form')
       </x-bg-div>
 
+      @hasrole('superadmin')
+      <x-bg-div>
+        @include('profile.partials.role')
+      </x-bg-div>
+      @endhasrole
+
       <x-bg-div>
         @include('profile.partials.update-avatar-form')
       </x-bg-div>
