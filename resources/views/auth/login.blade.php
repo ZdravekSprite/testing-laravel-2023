@@ -49,11 +49,15 @@
       <span>{{ __('with') }}</span>
       <strong>Facebook</strong>
     </x-underline-link>
-    <span class="p-1 m-1"></span>
     <x-underline-link href="login/google">
       <strong>{{ __('Login') }}</strong>
       <span>{{ __('with') }}</span>
       <strong>Google</strong>
+    </x-underline-link>
+    <x-underline-link href="login/twitter">
+      <strong>{{ __('Login') }}</strong>
+      <span>{{ __('with') }}</span>
+      <strong>Twitter</strong>
     </x-underline-link>
   </div>
 </x-guest-layout>
