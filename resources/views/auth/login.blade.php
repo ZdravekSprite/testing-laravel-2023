@@ -54,10 +54,17 @@
       <span>{{ __('with') }}</span>
       <strong>Google</strong>
     </x-underline-link>
+  </div>
+  <div class="flex items-center justify-end m-4">
     <x-underline-link href="login/twitter">
       <strong>{{ __('Login') }}</strong>
       <span>{{ __('with') }}</span>
       <strong>Twitter</strong>
+    </x-underline-link>
+    <x-underline-link href="login/github">
+      <strong>{{ __('Login') }}</strong>
+      <span>{{ __('with') }}</span>
+      <strong>GitHub</strong>
     </x-underline-link>
   </div>
 </x-guest-layout>

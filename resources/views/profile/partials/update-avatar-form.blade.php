@@ -30,4 +30,10 @@
     <img src="{{ $user->twitter_avatar }}" class="user-image rounded-full w-24" alt="User Image" title="{{ $user->twitter_avatar }}">
   </div>
   @endif
+  @if ($user->github_id)
+  <div>
+    <x-p value="{{ $user->github_id }}" />
+    <img src="{{ $user->github_avatar }}" class="user-image rounded-full w-24" alt="User Image" title="{{ $user->github_avatar }}">
+  </div>
+  @endif
 </section>
