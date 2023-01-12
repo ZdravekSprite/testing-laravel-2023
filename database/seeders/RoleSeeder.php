@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
     Role::create(['name' => 'blockeduser']);
     $superadminRole = Role::where('name', 'superadmin')->first();
     $adminRole = Role::where('name', 'admin')->first();
-    $super_admin = User::where('email', env('SUPER_ADMIN_EMAIL', 'super@admin.com'))->firstOrFail();
+    $super_admin = User::where('email', env('SUPER_ADMIN_EMAIL', 'super@admin.com'))->first();
     if (!$super_admin) {
       $super_admin = User::create([
         'name' => env('SUPER_ADMIN_NAME', 'Super Admin'),

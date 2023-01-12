@@ -40,4 +40,5 @@
       </x-primary-button>
     </div>
   </form>
+  @include('auth.partials.login-with')
 </x-guest-layout>
