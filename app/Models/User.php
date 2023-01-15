@@ -56,4 +56,14 @@ class User extends Authenticatable
   {
     return null !== $this->roles()->where('name', $role)->first();
   }
+
+  public function icon()
+  {
+    if ($this->avatar) return $this->avatar;
+    if ($this->roles()->whereIn('name', 'superadmin')->first()) return 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg';
+    if ($this->roles()->whereIn('name', 'admin')->first()) return 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg';
+    if ($this->roles()->whereIn('name', 'socialuser')->first()) return 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_2.svg';
+    if ($this->roles()->whereIn('name', 'blockeduser')->first()) return 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg';
+    return 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Blank_user.svg';
+  }
 }
