@@ -33,6 +33,14 @@ class ProfileController extends Controller
    */
   public function update(ProfileUpdateRequest $request)
   {
+    //dd($request->user(),$request->input('avatar'));
+
+    if ($request->input('avatar')) {
+      $request->user()->avatar = $request->input('avatar');
+      $request->user()->save();
+      return Redirect::route('profile.edit','#avatar-section')->with('status', 'avatar-updated');
+    }
+
     $request->user()->fill($request->validated());
 
     if ($request->user()->isDirty('email')) {
