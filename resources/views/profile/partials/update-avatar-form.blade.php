@@ -18,54 +18,36 @@
     <hr class="w-full">
   </div>
 
+  <div class="flex m-4 space-x-4">
   <!-- Social Icons -->
   @if ($user->google_id)
-  <div>
-    <x-p value="{{ $user->google_id }}" />
-    <img src="{{ $user->google_avatar }}" class="user-image rounded-full w-24" alt="User Image" title="{{ $user->google_avatar }}">
-  </div>
+    <img src="{{ $user->google_avatar }}" class="rounded-full w-24" alt="{{ $user->google_id }}" title="{{ $user->google_avatar }}">
   @endif
   @if ($user->facebook_id)
-  <div>
-    <x-p value="{{ $user->facebook_id }}" />
-    <img src="{{ $user->facebook_avatar }}" class="user-image rounded-full w-24" alt="User Image" title="{{ $user->facebook_avatar }}">
-  </div>
+    <img src="{{ $user->facebook_avatar }}" class="rounded-full w-24" alt="{{ $user->facebook_id }}" title="{{ $user->facebook_avatar }}">
   @endif
   @if ($user->twitter_id)
-  <div>
-    <x-p value="{{ $user->twitter_id }}" />
-    <img src="{{ $user->twitter_avatar }}" class="user-image rounded-full w-24" alt="User Image" title="{{ $user->twitter_avatar }}">
-  </div>
+    <img src="{{ $user->twitter_avatar }}" class="rounded-full w-24" alt="{{ $user->twitter_id }}" title="{{ $user->twitter_avatar }}">
   @endif
   @if ($user->github_id)
-  <div>
-    <x-p value="{{ $user->github_id }}" />
-    <img src="{{ $user->github_avatar }}" class="user-image rounded-full w-24" alt="User Image" title="{{ $user->github_avatar }}">
-  </div>
+    <img src="{{ $user->github_avatar }}" class="rounded-full w-24" alt="{{ $user->github_id }}" title="{{ $user->github_avatar }}">
   @endif
+  </div>
 
+  <div class="flex m-4 space-x-4">
   <!-- Role Icons -->
   @hasrole('superadmin')
-  <div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg" class="user-image rounded-full w-24" alt="superadmin">
-  </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg" class="rounded-full w-24" alt="superadmin">
   @endhasrole
   @hasrole('admin')
-  <div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg" class="user-image rounded-full w-24" alt="admin">
-  </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg" class="rounded-full w-24" alt="admin">
   @endhasrole
   @hasrole('socialuser')
-  <div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Gnome-system-users.svg" class="user-image rounded-full w-24" alt="socialuser">
-  </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Gnome-system-users.svg" class="rounded-full w-24" alt="socialuser">
   @endhasrole
   @hasrole('blockeduser')
-  <div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg" class="user-image rounded-full w-24" alt="blockeduser">
-  </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg" class="rounded-full w-24" alt="blockeduser">
   @endhasrole
-  <div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg" class="user-image rounded-full w-24" alt="user">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg" class="rounded-full w-24" alt="user">
   </div>
 </section>
