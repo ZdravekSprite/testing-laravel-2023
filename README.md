@@ -5,14 +5,12 @@ Testing Laravel framework in 2023
 ## Blade
 
 - to-do:
-
-[x] Breeze
+  - [x] Breeze
 
 ## Vue
 
 - to-do:
-
-[x] Breeze
+  - [x] Breeze
 
 ```bash
 composer create-project laravel/laravel vue
