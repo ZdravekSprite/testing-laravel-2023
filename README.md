@@ -39,7 +39,7 @@ php artisan serve
 ```
 
 - to-do:
-  - [x] Breeze
+  - [x] [Breeze](blade 00.md)
   - [x] Role
   - [x] AdminAccess
   - [x] Impersonate
@@ -66,8 +66,8 @@ php artisan serve
 ```
 
 - to-do:
-  - [x] Breeze
-  - [ ] Role
+  - [x] [Breeze](vue 00.md)
+  - [ ] [Role](vue 01.md)
   - [ ] AdminAccess
   - [ ] Impersonate
 
