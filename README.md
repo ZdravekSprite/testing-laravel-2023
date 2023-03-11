@@ -39,7 +39,7 @@ php artisan serve
 ```
 
 - to-do:
-  - [x] [Breeze](blade 00.md)
+  - [x] [Breeze](blade00.md)
   - [x] Role
   - [x] AdminAccess
   - [x] Impersonate
@@ -66,13 +66,13 @@ php artisan serve
 ```
 
 - to-do:
-  - [x] [Breeze](vue 00.md)
-  - [ ] [Role](vue 01.md)
+  - [x] [Breeze](vue00.md)
+  - [ ] [Role](vue01.md)
   - [ ] AdminAccess
   - [ ] Impersonate
 
 ```bash
 git add .
-git commit -am "Laravel 2023 Vue v0.2.0"
+git commit -am "Laravel 2023 Vue v0.2.2"
 git push
 ```
