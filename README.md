@@ -2,7 +2,7 @@
 
 Testing Laravel framework in 2023
 
--.editorconfig
+- .editorconfig
 
 ```ts
 [*]
@@ -21,8 +21,7 @@ trim_trailing_whitespace = false
 
 ```bash
 composer create-project laravel/laravel blade
-cd blade
-touch database/database.sqlite
+touch blade/database/database.sqlite
 ```
 
 - blade/.env
@@ -30,6 +29,13 @@ touch database/database.sqlite
 ```edit
 APP_NAME="Laravel 2023 Blade"
 DB_CONNECTION=sqlite
+```
+
+```bash
+cd blade
+php artisan migrate:fresh --seed
+npm install && npm run dev
+php artisan serve
 ```
 
 - to-do:
@@ -42,8 +48,7 @@ DB_CONNECTION=sqlite
 
 ```bash
 composer create-project laravel/laravel vue
-cd vue
-touch database/database.sqlite
+touch vue/database/database.sqlite
 ```
 
 - vue/.env
@@ -53,14 +58,21 @@ APP_NAME="Laravel 2023 Vue"
 DB_CONNECTION=sqlite
 ```
 
+```bash
+cd vue
+php artisan migrate:fresh --seed
+npm install && npm run dev
+php artisan serve
+```
+
 - to-do:
   - [x] Breeze
-  - [] Breeze
-  - [] AdminAccess
-  - [] Impersonate
+  - [ ] Role
+  - [ ] AdminAccess
+  - [ ] Impersonate
 
 ```bash
 git add .
-git commit -am "Laravel 2023 Vue v0.1.2"
+git commit -am "Laravel 2023 Vue v0.2.0"
 git push
 ```
