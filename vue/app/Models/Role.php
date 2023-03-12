@@ -19,11 +19,16 @@ class Role extends Model
     'created_at',
     'updated_at',
   ];
-
+/*
   protected $appends = ['users'];
 
   public function getUsersAttribute()
   {
     return $this->belongsToMany(User::class)->get();
+  }
+*/
+  public function users()
+  {
+    return $this->belongsToMany(User::class);
   }
 }

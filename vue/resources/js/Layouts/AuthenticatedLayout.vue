@@ -8,6 +8,7 @@ import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
+//console.log(usePage().props);
 const isAuth = usePage().props.auth;
 const hasRole = isAuth ? usePage().props.auth.user.roles : false;
 const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 'admin').length : false;

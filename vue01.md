@@ -12,12 +12,17 @@ php artisan make:model Role -a
     'created_at',
     'updated_at',
   ];
-
+/*
   protected $appends = ['users'];
 
   public function getUsersAttribute()
   {
     return $this->belongsToMany(User::class)->get();
+  }
+*/
+  public function users()
+  {
+    return $this->belongsToMany(User::class);
   }
 ```
 
@@ -29,14 +34,18 @@ php artisan make:model Role -a
     'created_at',
     'updated_at',
   ];
-
+  public function roles()
+  {
+    return $this->belongsToMany(Role::class);
+  }
+/*
   protected $appends = ['roles'];
 
   public function getRolesAttribute()
   {
     return $this->belongsToMany(Role::class)->get();
   }
-
+*/
   public function hasAnyRoles($roles)
   {
     return null !== $this->roles()->whereIn('name', $roles)->first();

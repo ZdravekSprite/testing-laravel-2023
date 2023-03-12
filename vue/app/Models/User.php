@@ -45,20 +45,25 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  public function roles()
+  {
+    return $this->belongsToMany(Role::class);
+  }
+/*
   protected $appends = ['roles'];
 
   public function getRolesAttribute()
   {
     return $this->belongsToMany(Role::class)->get();
   }
-
+*/
   public function hasAnyRoles($roles)
   {
-    return null !== $this->roles->whereIn('name', $roles)->first();
+    return null !== $this->roles()->whereIn('name', $roles)->first();
   }
 
   public function hasAnyRole($role)
   {
-    return null !== $this->roles->where('name', $role)->first();
+    return null !== $this->roles()->where('name', $role)->first();
   }
 }

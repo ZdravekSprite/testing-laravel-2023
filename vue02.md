@@ -53,3 +53,9 @@ const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 
             </ResponsiveNavLink>
           </div>
 ```
+
+- vue\app\Http\Middleware\HandleInertiaRequests.php
+
+```php
+        'user' => ($request->user() && $request->user()->roles()) ? array_merge($request->user()->toArray(), ['roles' => $request->user()->roles()->get()]) : $request->user(),
+```
