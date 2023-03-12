@@ -73,6 +73,6 @@ php artisan serve
 
 ```bash
 git add .
-git commit -am "Laravel 2023 Vue v0.2.3"
+git commit -am "Laravel 2023 Vue v0.2.4"
 git push
 ```
