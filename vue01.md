@@ -134,7 +134,7 @@ php artisan db:seed --class=RoleSeeder
 
 - vue\resources\js\Pages\Profile\Partials\RoleInformation.vue
 
-```js
+```ts
 <script setup>
 const props = defineProps({
   roles: Array,
@@ -156,7 +156,9 @@ const props = defineProps({
 </template>
 ```
 
-```js
+- vue\resources\js\Pages\Profile\Edit.vue
+
+```ts
 import RoleInformation from './Partials/RoleInformation.vue';
 defineProps({
   roles: Array,
@@ -205,7 +207,7 @@ Route::middleware('auth')->group(function () {
 
 - vue\resources\js\Layouts\AuthenticatedLayout.vue
 
-```php
+```ts
               <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink :href="route('role.index')" :active="route().current('role.index')">
@@ -223,7 +225,7 @@ Route::middleware('auth')->group(function () {
 
 - vue\resources\js\Pages\Role\Index.vue
 
-```php
+```ts
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
