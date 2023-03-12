@@ -106,3 +106,52 @@ SUPER_ADMIN_PASS=password
 ```bash
 php artisan db:seed --class=RoleSeeder
 ```
+
+- vue\resources\js\Pages\Profile\Partials\RoleInformation.vue
+
+```js
+<script setup>
+const props = defineProps({
+  roles: Array,
+});
+</script>
+
+<template>
+  <section>
+    <header>
+      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Role Information</h2>
+
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+      <div v-for="r in roles" :key="r.id">
+        {{ r.name }}
+      </div>
+      </p>
+    </header>
+  </section>
+</template>
+```
+
+```js
+import RoleInformation from './Partials/RoleInformation.vue';
+defineProps({
+  roles: Array,
+  mustVerifyEmail: Boolean,
+  status: String,
+});
+        <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+          <RoleInformation :roles="roles" class="max-w-xl" />
+        </div>
+```
+
+- vue\app\Http\Controllers\ProfileController.php
+
+```php
+  public function edit(Request $request): Response
+  {
+    return Inertia::render('Profile/Edit', [
+      'roles' => $request->user()->roles,
+      'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+      'status' => session('status'),
+    ]);
+  }
+```
