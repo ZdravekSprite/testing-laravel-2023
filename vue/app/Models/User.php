@@ -29,8 +29,11 @@ class User extends Authenticatable
    * @var array<int, string>
    */
   protected $hidden = [
+    'id',
     'password',
     'remember_token',
+    'created_at',
+    'updated_at',
   ];
 
   /**
@@ -42,18 +45,20 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
-  public function roles()
+  protected $appends = ['roles'];
+
+  public function getRolesAttribute()
   {
-    return $this->belongsToMany(Role::class);
+    return $this->belongsToMany(Role::class)->get();
   }
 
   public function hasAnyRoles($roles)
   {
-    return null !== $this->roles()->whereIn('name', $roles)->first();
+    return null !== $this->roles->whereIn('name', $roles)->first();
   }
 
   public function hasAnyRole($role)
   {
-    return null !== $this->roles()->where('name', $role)->first();
+    return null !== $this->roles->where('name', $role)->first();
   }
 }

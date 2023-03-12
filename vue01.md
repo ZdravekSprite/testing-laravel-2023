@@ -7,18 +7,34 @@ php artisan make:model Role -a
 - vue\app\Models\Role.php
 
 ```php
-  public function users()
+  protected $hidden = [
+    'id',
+    'created_at',
+    'updated_at',
+  ];
+
+  protected $appends = ['users'];
+
+  public function getUsersAttribute()
   {
-    return $this->belongsToMany(User::class);
+    return $this->belongsToMany(User::class)->get();
   }
 ```
 
 - vue\app\Models\User.php
 
 ```php
-  public function roles()
+  protected $hidden = [
+    'id',
+    'created_at',
+    'updated_at',
+  ];
+
+  protected $appends = ['roles'];
+
+  public function getRolesAttribute()
   {
-    return $this->belongsToMany(Role::class);
+    return $this->belongsToMany(Role::class)->get();
   }
 
   public function hasAnyRoles($roles)

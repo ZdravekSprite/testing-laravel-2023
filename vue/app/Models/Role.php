@@ -9,8 +9,21 @@ class Role extends Model
 {
   use HasFactory;
 
-  public function users()
+  /**
+   * The attributes that should be hidden for serialization.
+   *
+   * @var array<int, string>
+   */
+  protected $hidden = [
+    'id',
+    'created_at',
+    'updated_at',
+  ];
+
+  protected $appends = ['users'];
+
+  public function getUsersAttribute()
   {
-    return $this->belongsToMany(User::class);
+    return $this->belongsToMany(User::class)->get();
   }
 }
