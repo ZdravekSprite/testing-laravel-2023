@@ -24,6 +24,7 @@ defineProps({
               <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Roles</th>
               </tr>
             </thead>
             <tbody>
@@ -32,6 +33,9 @@ defineProps({
               :key="u.id">
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.name}}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.email}}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                  {{u.roles.map(e => e.name).join(', ')}}
+                </td>
               </tr>
             </tbody>
           </table>
