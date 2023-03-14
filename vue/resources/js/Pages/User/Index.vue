@@ -1,4 +1,7 @@
 <script setup>
+import IconPen from '@/Components/IconPen.vue';
+import IconPerson from '@/Components/IconPerson.vue';
+import IconTrash from '@/Components/IconTrash.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 defineProps({
@@ -25,6 +28,7 @@ defineProps({
                 <th>Name</th>
                 <th>Email</th>
                 <th>Roles</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -33,8 +37,11 @@ defineProps({
               :key="u.id">
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.name}}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.email}}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.roles.map(e => e.name).join(', ')}}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  {{u.roles.map(e => e.name).join(', ')}}
+                  <IconPen class="float-left block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  <IconPerson class="float-left block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  <IconTrash class="float-right block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
                 </td>
               </tr>
             </tbody>

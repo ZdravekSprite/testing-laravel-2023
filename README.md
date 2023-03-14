@@ -61,7 +61,15 @@ DB_CONNECTION=sqlite
 ```bash
 cd vue
 php artisan migrate:fresh --seed
+```
+
+```bash
+cd vue
 npm install && npm run dev
+```
+
+```bash
+cd vue
 php artisan serve
 ```
 
@@ -74,6 +82,6 @@ php artisan serve
 
 ```bash
 git add .
-git commit -am "Laravel 2023 Vue v0.4.2"
+git commit -am "Laravel 2023 Vue v0.4.3"
 git push
 ```
