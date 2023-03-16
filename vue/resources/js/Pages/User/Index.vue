@@ -1,9 +1,11 @@
 <script setup>
 import IconPen from '@/Components/IconPen.vue';
 import IconPerson from '@/Components/IconPerson.vue';
-import IconTrash from '@/Components/IconTrash.vue';
+import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head } from '@inertiajs/vue3';
+
 defineProps({
   users: Array,
 });
@@ -32,16 +34,18 @@ defineProps({
               </tr>
             </thead>
             <tbody>
-              <tr
-              v-for="u in users"
-              :key="u.id">
-                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.name}}</td>
-                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.email}}</td>
-                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.roles.map(e => e.name).join(', ')}}</td>
+              <tr v-for="u in users" :key="u.id">
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.name }}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.email }}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.roles.map(e => e.name).join(', ') }}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  <IconPen class="float-left block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                  <IconPerson class="float-left block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                  <IconTrash class="float-right block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  <SecondaryButton class="float-left">
+                    <IconPen class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  </SecondaryButton>
+                  <SecondaryButton class="float-left">
+                    <IconPerson class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  </SecondaryButton>
+                  <DeleteUserForm class="max-w-xl" :user="u" />
                 </td>
               </tr>
             </tbody>

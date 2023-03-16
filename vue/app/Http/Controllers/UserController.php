@@ -6,6 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
 class UserController extends Controller
 {
   /**
@@ -18,7 +22,6 @@ class UserController extends Controller
       $user['roles'] = $roles;
       return $user;
     });
-    //dd($users->toArray());
     return Inertia::render(
       'User/Index',
       [
@@ -70,8 +73,12 @@ class UserController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(User $user)
+  public function destroy(Request $request)
   {
-    //
+    $request->validate([
+      'password' => ['required', 'current-password'],
+    ]);
+    $user = User::findOrFail($request->id);;
+    $user->delete();
   }
 }

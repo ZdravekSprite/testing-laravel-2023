@@ -10,12 +10,25 @@ php artisan make:controller UserController -mUser
 use Inertia\Inertia;
   public function index()
   {
+    $users = User::all()->map(function ($user) {
+      $roles = $user->roles()->get();
+      $user['roles'] = $roles;
+      return $user;
+    });
     return Inertia::render(
       'User/Index',
       [
-        'users' => User::all(),
+        'users' => $users->toArray(),
       ]
     );
+  }
+  public function destroy(Request $request)
+  {
+    $request->validate([
+      'password' => ['required', 'current-password'],
+    ]);
+    $user = User::findOrFail($request->id);;
+    $user->delete();
   }
 ```
 
@@ -25,6 +38,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\UserController;
 Route::middleware('auth.admin')->group(function () {
   Route::get('/user', [UserController::class, 'index'])->name('user.index');
+  Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
 });
 ```
 
@@ -63,15 +77,107 @@ Route::middleware('auth.admin')->group(function () {
 </template>
 ```
 
+- vue\resources\js\Pages\User\Partials\DeleteUserForm.vue
+
+```ts
+<script setup>
+import DangerButton from '@/Components/DangerButton.vue';
+import IconTrash from '@/Components/IconTrash.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import Modal from '@/Components/Modal.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { nextTick, ref } from 'vue';
+
+const props = defineProps({
+  user: Object,
+});
+
+const confirmingUserDeletion = ref(false);
+const passwordInput = ref(null);
+
+const authUser = usePage().props.auth.user;
+
+const form = useForm({
+  password: '',
+  id: props.user.id,
+});
+
+const confirmUserDeletion = () => {
+  confirmingUserDeletion.value = true;
+
+  nextTick(() => passwordInput.value.focus());
+};
+
+const deleteUser = () => {
+  form.delete(route('user.destroy'), {
+    preserveScroll: true,
+    onSuccess: () => closeModal(),
+    onError: () => passwordInput.value.focus(),
+    onFinish: () => form.reset(),
+  });
+};
+
+const closeModal = () => {
+  confirmingUserDeletion.value = false;
+
+  form.reset();
+};
+</script>
+
+<template>
+  <div v-if="props.user.id !== authUser.id">
+    <DangerButton class="float-right" @click="confirmUserDeletion">
+      <IconTrash class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+    </DangerButton>
+
+    <Modal :show="confirmingUserDeletion" @close="closeModal">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+          Are you sure you want to delete account?
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          Once account is deleted, all of its resources and data will be permanently deleted.
+          Please enter your password to confirm you would like to permanently delete account.
+        </p>
+
+        <div class="mt-6">
+          <InputLabel for="password" value="Password" class="sr-only" />
+
+          <TextInput id="password" ref="passwordInput" v-model="form.password" type="password" class="mt-1 block w-3/4"
+            placeholder="Password" @keyup.enter="deleteUser" />
+
+          <InputError :message="form.errors.password" class="mt-2" />
+        </div>
+
+        <div class="mt-6 flex justify-end">
+          <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+
+          <DangerButton class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+            @click="deleteUser">
+            Delete Account
+          </DangerButton>
+        </div>
+      </div>
+    </Modal>
+  </div>
+</template>
+```
+
 - vue\resources\js\Pages\User\Index.vue
 
 ```ts
 <script setup>
 import IconPen from '@/Components/IconPen.vue';
 import IconPerson from '@/Components/IconPerson.vue';
-import IconTrash from '@/Components/IconTrash.vue';
+import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head } from '@inertiajs/vue3';
+
 defineProps({
   users: Array,
 });
@@ -100,16 +206,18 @@ defineProps({
               </tr>
             </thead>
             <tbody>
-              <tr
-              v-for="u in users"
-              :key="u.id">
-                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.name}}</td>
-                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.email}}</td>
-                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{u.roles.map(e => e.name).join(', ')}}</td>
+              <tr v-for="u in users" :key="u.id">
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.name }}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.email }}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.roles.map(e => e.name).join(', ') }}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  <IconPen class="float-left block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                  <IconPerson class="float-left block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                  <IconTrash class="float-right block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  <SecondaryButton class="float-left">
+                    <IconPen class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  </SecondaryButton>
+                  <SecondaryButton class="float-left">
+                    <IconPerson class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                  </SecondaryButton>
+                  <DeleteUserForm class="max-w-xl" :user="u" />
                 </td>
               </tr>
             </tbody>
