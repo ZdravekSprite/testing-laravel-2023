@@ -1,7 +1,7 @@
 <script setup>
-import IconPen from '@/Components/IconPen.vue';
 import IconPerson from '@/Components/IconPerson.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
+import UpdateUserForm from './Partials/UpdateUserForm.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head } from '@inertiajs/vue3';
@@ -39,13 +39,11 @@ defineProps({
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.email }}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.roles.map(e => e.name).join(', ') }}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                  <SecondaryButton class="float-left">
-                    <IconPen class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                  </SecondaryButton>
+                  <UpdateUserForm class="float-left" :user="u" />
                   <SecondaryButton class="float-left">
                     <IconPerson class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
                   </SecondaryButton>
-                  <DeleteUserForm class="max-w-xl" :user="u" />
+                  <DeleteUserForm :user="u" />
                 </td>
               </tr>
             </tbody>
