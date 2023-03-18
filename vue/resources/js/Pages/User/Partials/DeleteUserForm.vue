@@ -47,7 +47,7 @@ const closeModal = () => {
 
 <template>
   <div v-if="props.user.id !== authUser.id">
-    <DangerButton class="float-right" @click="confirmUserDeletion">
+    <DangerButton @click="confirmUserDeletion">
       <IconTrash class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
     </DangerButton>
 

@@ -174,6 +174,30 @@ const closeModal = () => {
 </template>
 ```
 
+- vue\resources\js\Pages\User\Partials\ImpersonateUser.vue
+
+```ts
+<script setup>
+import IconPerson from '@/Components/IconPerson.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import { usePage } from '@inertiajs/vue3';
+
+const props = defineProps({
+  user: Object,
+});
+
+const authUser = usePage().props.auth.user;
+</script>
+
+<template>
+  <div v-if="props.user.id !== authUser.id">
+    <SecondaryButton>
+      <IconPerson class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+    </SecondaryButton>
+  </div>
+</template>
+```
+
 - vue\resources\js\Pages\User\Partials\DeleteUserForm.vue
 
 ```ts
@@ -268,11 +292,10 @@ const closeModal = () => {
 
 ```ts
 <script setup>
-import IconPerson from '@/Components/IconPerson.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdateUserForm from './Partials/UpdateUserForm.vue';
+import ImpersonateUser from './Partials/ImpersonateUser.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps({
@@ -309,10 +332,8 @@ defineProps({
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ u.roles.map(e => e.name).join(', ') }}</td>
                 <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                   <UpdateUserForm class="float-left" :user="u" />
-                  <SecondaryButton class="float-left">
-                    <IconPerson class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                  </SecondaryButton>
-                  <DeleteUserForm :user="u" />
+                  <ImpersonateUser class="float-left" :user="u" />
+                  <DeleteUserForm class="float-right" :user="u" />
                 </td>
               </tr>
             </tbody>

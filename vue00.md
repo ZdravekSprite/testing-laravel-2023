@@ -36,3 +36,14 @@ defineProps({
         Not registered jet?
         </Link>
 ```
+
+- vue\resources\js\Pages\Dashboard.vue
+
+```js
+import { computed } from 'vue'
+import { Head, usePage } from '@inertiajs/vue3';
+
+const user = computed(() => usePage().props.auth.user)
+
+          <div class="p-6 text-gray-900 dark:text-gray-100">You're logged in as: {{ user.name }}!</div>
+```
