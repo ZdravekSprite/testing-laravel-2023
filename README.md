@@ -59,18 +59,15 @@ DB_CONNECTION=sqlite
 ```
 
 ```bash
-cd vue
-php artisan migrate:fresh --seed
+cd vue && php artisan migrate:fresh --seed
 ```
 
 ```bash
-cd vue
-npm install && npm run dev
+cd vue && npm install && npm run dev
 ```
 
 ```bash
-cd vue
-php artisan serve
+cd vue && php artisan serve
 ```
 
 - to-do:
@@ -78,10 +75,8 @@ php artisan serve
   - [x] [Role](vue01.md)
   - [x] [AdminAccess](vue02.md)
   - [x] [Users](vue03.md)
-  - [-] Impersonate
+  - [x] [Impersonate](vue04.md)
 
 ```bash
-git add .
-git commit -am "Laravel 2023 Vue v0.4.7"
-git push
+git add . && git commit -am "Laravel 2023 Vue v0.5.0" && git push
 ```

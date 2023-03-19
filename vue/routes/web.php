@@ -37,9 +37,11 @@ Route::middleware('auth')->group(function () {
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');
 Route::middleware('auth.admin')->group(function () {
   Route::get('/role', [RoleController::class, 'index'])->name('role.index');
-  Route::get('/user', [UserController::class, 'index'])->name('user.index');
+  Route::get('/users', [UserController::class, 'index'])->name('user.index');
+  Route::get('/user/{user}', [UserController::class, 'start'])->name('user.start');
   Route::patch('/user', [UserController::class, 'update'])->name('user.update');
   Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
 });

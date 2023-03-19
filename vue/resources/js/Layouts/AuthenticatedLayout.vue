@@ -10,6 +10,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 const showingNavigationDropdown = ref(false);
 //console.log(usePage().props);
 const isAuth = usePage().props.auth;
+const isImpersonating = usePage().props.impersonate.id;
 const hasRole = isAuth ? usePage().props.auth.user.roles : false;
 const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 'admin').length : false;
 </script>
@@ -33,6 +34,9 @@ const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 
               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                   Dashboard
+                </NavLink>
+                <NavLink v-if="isImpersonating" :href="route('user.stop')" :active="isImpersonating">
+                  Stop
                 </NavLink>
                 <NavLink v-if="isadmin" :href="route('role.index')" :active="route().current('role.index')">
                   Role
@@ -99,6 +103,9 @@ const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 
           <div class="pt-2 pb-3 space-y-1">
             <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
               Dashboard
+            </ResponsiveNavLink>
+            <ResponsiveNavLink v-if="isImpersonating" :href="route('user.stop')" :active="isImpersonating">
+              Stop
             </ResponsiveNavLink>
             <ResponsiveNavLink v-if="isadmin" :href="route('role.index')" :active="route().current('role.index')">
               Role
