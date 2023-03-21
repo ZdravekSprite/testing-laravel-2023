@@ -1,3 +1,30 @@
+# Components
+
+- [x] list
+- [x] action
+  - [x] edit
+  - [ ] delete
+
+- vue\resources\js\Components\EditForm.vue
+
+```ts
+<script setup>
+import IconPen from '@/Components/IconPen.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+</script>
+
+<template>
+  <div>
+    <SecondaryButton>
+      <IconPen class="block h-4 w-auto fill-current text-gray-800 dark:text-gray-200" />
+    </SecondaryButton>
+  </div>
+</template>
+```
+
+- vue\resources\js\Components\IndexList.vue
+
+```ts
 <script setup>
 import EditForm from '@/Components/EditForm.vue';
 
@@ -39,3 +66,10 @@ defineProps({
     </tbody>
   </table>
 </template>
+```
+
+- vue\resources\js\Pages\Role\Index.vue
+
+```ts
+          <IndexList :elements="roles" :labels="['name','description']" :actions="['edit']"/>
+```
