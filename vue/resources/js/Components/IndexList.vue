@@ -1,4 +1,5 @@
 <script setup>
+import DeleteForm from '@/Components/DeleteForm.vue';
 import EditForm from '@/Components/EditForm.vue';
 
 defineProps({
@@ -23,7 +24,7 @@ defineProps({
       <tr>
         <th v-if="elements[0].icon" class="w-8"></th>
         <th v-for="l in labels" :key="l.id">{{ l }}</th>
-        <th v-if="actions.length">Actions</th>
+        <th v-if="actions.length" :style="{ width: (actions.length * 60) + 'px' }">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -34,6 +35,7 @@ defineProps({
         </td>
         <td v-if="actions.length" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           <EditForm v-if="actions.includes('edit')" class="float-left" :element="e" :labels=labels />
+          <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e" />
         </td>
       </tr>
     </tbody>
