@@ -17,11 +17,31 @@ class RoleSeeder extends Seeder
   public function run(): void
   {
     Role::truncate();
-    Role::create(['name' => 'superadmin', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg']);
-    Role::create(['name' => 'admin', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg']);
-    Role::create(['name' => 'user', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Blank_user.svg']);
-    Role::create(['name' => 'socialuser', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_2.svg']);
-    Role::create(['name' => 'blockeduser', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg']);
+    Role::create([
+      'name' => 'superadmin',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg',
+      'description' => 'Super admin'
+    ]);
+    Role::create([
+      'name' => 'admin',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg',
+      'description' => 'admin'
+    ]);
+    Role::create([
+      'name' => 'user',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Blank_user.svg',
+      'description' => 'User'
+    ]);
+    Role::create([
+      'name' => 'socialuser',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg',
+      'description' => 'Social user'
+    ]);
+    Role::create([
+      'name' => 'blockeduser',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg',
+      'description' => 'Blocked user'
+    ]);
     DB::table('role_user')->truncate();
     $superadminRole = Role::where('name', 'superadmin')->first();
     $adminRole = Role::where('name', 'admin')->first();

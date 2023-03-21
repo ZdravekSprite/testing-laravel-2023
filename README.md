@@ -78,5 +78,5 @@ cd vue && php artisan serve
   - [x] [Impersonate](vue04.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.5.0" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.5.1" && git push
 ```

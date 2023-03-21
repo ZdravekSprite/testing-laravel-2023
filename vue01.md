@@ -65,8 +65,9 @@ php artisan make:model Role -a
   {
     Schema::create('roles', function (Blueprint $table) {
       $table->id();
-      $table->string('name');
+      $table->string('name')->unique();
       $table->string('icon');
+      $table->string('description')->nullable();
       $table->timestamps();
     });
     Schema::create('role_user', function (Blueprint $table) {
@@ -94,18 +95,38 @@ use App\Models\Role;
   public function run(): void
   {
     Role::truncate();
-    Role::create(['name' => 'superadmin', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg']);
-    Role::create(['name' => 'admin', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg']);
-    Role::create(['name' => 'user', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Blank_user.svg']);
-    Role::create(['name' => 'socialuser', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_2.svg']);
-    Role::create(['name' => 'blockeduser', 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg']);
+    Role::create([
+      'name' => 'superadmin',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/5/55/User-admin-gear.svg',
+      'description' => 'Super admin'
+    ]);
+    Role::create([
+      'name' => 'admin',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg',
+      'description' => 'admin'
+    ]);
+    Role::create([
+      'name' => 'user',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Blank_user.svg',
+      'description' => 'User'
+    ]);
+    Role::create([
+      'name' => 'socialuser',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg',
+      'description' => 'Social user'
+    ]);
+    Role::create([
+      'name' => 'blockeduser',
+      'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Gnome-stock_person.svg',
+      'description' => 'Blocked user'
+    ]);
     DB::table('role_user')->truncate();
     $superadminRole = Role::where('name', 'superadmin')->first();
     $adminRole = Role::where('name', 'admin')->first();
     $super_admin = User::create([
       'name' => env('SUPER_ADMIN_NAME', 'Super Admin'),
       'email' =>  env('SUPER_ADMIN_EMAIL', 'super@admin.com'),
-      'password' => Hash::make(env('SUPER_ADMIN_PASS', 'password'))
+      'password' => Hash::make(env('SUPER_ADMIN_PASS', 'password')),
     ]);
     $super_admin->roles()->attach($superadminRole);
     $super_admin->roles()->attach($adminRole);
@@ -115,9 +136,15 @@ use App\Models\Role;
 - vue\database\seeders\DatabaseSeeder.php
 
 ```php
+use App\Models\User;
   public function run(): void
   {
     $this->call(RoleSeeder::class);
+    User::factory()->create([
+      'name' => 'Test User',
+      'email' => 'test@example.com',
+    ]);
+    User::factory(5)->create();
   }
 ```
 
