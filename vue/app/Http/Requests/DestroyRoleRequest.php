@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRoleRequest extends FormRequest
+class DestroyRoleRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -14,7 +14,6 @@ class StoreRoleRequest extends FormRequest
   {
     return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
   }
-
   /**
    * Get the validation rules that apply to the request.
    *

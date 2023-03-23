@@ -11,6 +11,10 @@ defineProps({
     type: Array,
     default: [],
   },
+  actionRoute: {
+    type: String,
+    default: '',
+  },
   actions: {
     type: Array,
     default: [],
@@ -35,7 +39,7 @@ defineProps({
         </td>
         <td v-if="actions.length" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           <EditForm v-if="actions.includes('edit')" class="float-left" :element="e" :labels=labels />
-          <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e" />
+          <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e" :deleteRoute="(actionRoute + 'destroy')" />
         </td>
       </tr>
     </tbody>

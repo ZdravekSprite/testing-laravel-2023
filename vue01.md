@@ -222,6 +222,71 @@ use Inertia\Inertia;
       ]
     );
   }
+  public function destroy(DestroyRoleRequest $request, Role $role)
+  {
+    $role->delete();
+  }
+```
+
+- vue\app\Http\Requests\DestroyRoleRequest.php
+
+```php
+use App\Models\Role;
+use Illuminate\Foundation\Http\FormRequest;
+class DestroyRoleRequest extends FormRequest
+{
+  public function authorize(): bool
+  {
+    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
+  }
+  public function rules(): array
+  {
+    return [
+      //
+    ];
+  }
+}
+```
+
+- vue\app\Http\Requests\StoreRoleRequest.php
+
+```php
+use App\Models\Role;
+class StoreRoleRequest extends FormRequest
+{
+  public function authorize(): bool
+  {
+    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
+  }
+  public function rules(): array
+  {
+    return [
+      //
+    ];
+  }
+}
+```
+
+- vue\app\Http\Requests\UpdateRoleRequest.php
+
+```php
+use App\Models\Role;
+  public function authorize(): bool
+  {
+    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
+  }
+
+  /**
+   * Get the validation rules that apply to the request.
+   *
+   * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+   */
+  public function rules(): array
+  {
+    return [
+      //
+    ];
+  }
 ```
 
 - vue\routes\web.php
@@ -230,6 +295,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\RoleController;
 Route::middleware('auth')->group(function () {
   Route::get('/role', [RoleController::class, 'index'])->name('role.index');
+  Route::delete('/role/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
 });
 ```
 

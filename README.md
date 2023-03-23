@@ -79,5 +79,5 @@ cd vue && php artisan serve
   - [x] [Components](vue05.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.6.1" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.6.2" && git push
 ```

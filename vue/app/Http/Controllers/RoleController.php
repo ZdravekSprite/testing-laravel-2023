@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Http\Requests\DestroyRoleRequest;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use Inertia\Inertia;
@@ -65,8 +66,8 @@ class RoleController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Role $role)
+  public function destroy(DestroyRoleRequest $request, Role $role)
   {
-    //
+    $role->delete();
   }
 }

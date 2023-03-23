@@ -25,7 +25,7 @@ class RoleSeeder extends Seeder
     Role::create([
       'name' => 'admin',
       'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/04/User_icon_1.svg',
-      'description' => 'admin'
+      'description' => 'Admin'
     ]);
     Role::create([
       'name' => 'user',
