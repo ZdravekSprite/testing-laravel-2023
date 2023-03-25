@@ -80,7 +80,15 @@ cd vue && php artisan serve
     - [x] [NewForm](vue06.md)
     - [x] [EditForm](vue07.md)
     - [x] [DeleteForm](vue08.md)
+  - [x] [Search](vue09.md)
+  - [ ] [Export](vue10.md)
+  - [ ] [Import](vue11.md)
+  - [ ] [Pagination](vue12.md)
+  - [ ] [Upgrade](vue13.md)
+  - [ ] [Type](vue14.md)
+  - [ ] [Werhouse](vue15.md)
+  - [ ] [Device](vue16.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.6.5" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.7.0" && git push
 ```
