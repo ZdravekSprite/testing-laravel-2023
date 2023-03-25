@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRoleRequest extends FormRequest
@@ -12,7 +11,7 @@ class StoreRoleRequest extends FormRequest
    */
   public function authorize(): bool
   {
-    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
+    return $this->user()->hasAnyRole('superadmin');
   }
 
   /**
@@ -23,7 +22,8 @@ class StoreRoleRequest extends FormRequest
   public function rules(): array
   {
     return [
-      //
+      'name' => ['string', 'max:255', 'unique:roles'],
+      'description' => ['nullable', 'string', 'max:255'],
     ];
   }
 }

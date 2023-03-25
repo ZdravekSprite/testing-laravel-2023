@@ -1,8 +1,3 @@
-# Components NewForm
-
-- vue\resources\js\Components\NewForm.vue
-
-```ts
 <script setup>
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -72,14 +67,3 @@ const closeModal = () => {
     </Modal>
   </div>
 </template>
-```
-
-- vue\resources\js\Pages\Role\Index.vue
-
-```ts
-<script setup>
-import NewForm from '@/Components/NewForm.vue';
-
-    <template #header>
-        <NewForm  :storeRoute="('role.store')" :labels="['name','description']" />
-```

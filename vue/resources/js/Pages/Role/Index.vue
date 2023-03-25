@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import IndexList from '@/Components/IndexList.vue';
+import NewForm from '@/Components/NewForm.vue';
 import { Head } from '@inertiajs/vue3';
 defineProps({
   roles: Array,
@@ -13,7 +14,8 @@ defineProps({
   <AuthenticatedLayout>
     <template #header>
       <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Roles</h2>
+        <h2 class="p-1 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Roles</h2>
+        <NewForm  :storeRoute="('role.store')" :labels="['name','description']" />
       </div>
     </template>
 

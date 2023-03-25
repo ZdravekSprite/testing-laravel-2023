@@ -33,7 +33,7 @@ defineProps({
     </thead>
     <tbody>
       <tr v-for="e in elements" :key="e.id">
-        <td v-if="e.icon"><img class="rounded-full shadow-xl" width="20" height="20" :src="e.icon" /></td>
+        <td><img v-if="e.icon" class="rounded-full shadow-xl" width="20" height="20" :src="e.icon" /></td>
         <td v-for="l in labels" :key="l.id" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           {{ e[l] }}
         </td>

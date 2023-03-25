@@ -7,10 +7,10 @@
 import IconPen from '@/Components/IconPen.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 import Modal from '@/Components/Modal.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -20,13 +20,13 @@ const props = defineProps({
   labels: Array,
 });
 
+const confirmingUpdate = ref(false);
+
 const frmObj = {};
 for (let i = 0; i < props.labels.length; i++) {
   frmObj[props.labels[i]] = props.element[props.labels[i]];
 }
 frmObj['id'] = props.element['id'];
-const confirmingUpdate = ref(false);
-
 const form = useForm(frmObj);
 
 const confirmUpdate = () => {

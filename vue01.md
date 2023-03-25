@@ -66,7 +66,7 @@ php artisan make:model Role -a
     Schema::create('roles', function (Blueprint $table) {
       $table->id();
       $table->string('name')->unique();
-      $table->string('icon');
+      $table->string('icon')->nullable();
       $table->string('description')->nullable();
       $table->timestamps();
     });
@@ -222,9 +222,57 @@ use Inertia\Inertia;
       ]
     );
   }
+  public function store(StoreRoleRequest $request)
+  {
+    $role = new Role();
+    $role->name = $request->name;
+    $role->description = $request->description;
+    $role->save();
+  }
+  public function update(UpdateRoleRequest $request, Role $role)
+  {
+    $role->name = $request->name;
+    $role->description = $request->description;
+    $role->save();
+  }
   public function destroy(DestroyRoleRequest $request, Role $role)
   {
     $role->delete();
+  }
+```
+
+- vue\app\Http\Requests\StoreRoleRequest.php
+
+```php
+use App\Models\Role;
+  public function authorize(): bool
+  {
+    return $this->user()->hasAnyRole('superadmin');
+  }
+  public function rules(): array
+  {
+    return [
+      'name' => ['string', 'max:255', 'unique:roles'],
+      'description' => ['nullable', 'string', 'max:255'],
+    ];
+  }
+```
+
+- vue\app\Http\Requests\UpdateRoleRequest.php
+
+```php
+use App\Models\Role;
+use Illuminate\Validation\Rule;
+  public function authorize(): bool
+  {
+    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
+  }
+  public function rules(): array
+  {
+    return [
+      'name' => ['string', 'max:255', Rule::unique(Role::class)->ignore($this->id)],
+      'description' => ['nullable', 'string', 'max:255'],
+    ];
   }
 ```
 
@@ -248,53 +296,13 @@ class DestroyRoleRequest extends FormRequest
 }
 ```
 
-- vue\app\Http\Requests\StoreRoleRequest.php
-
-```php
-use App\Models\Role;
-class StoreRoleRequest extends FormRequest
-{
-  public function authorize(): bool
-  {
-    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
-  }
-  public function rules(): array
-  {
-    return [
-      //
-    ];
-  }
-}
-```
-
-- vue\app\Http\Requests\UpdateRoleRequest.php
-
-```php
-use App\Models\Role;
-  public function authorize(): bool
-  {
-    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
-  }
-
-  /**
-   * Get the validation rules that apply to the request.
-   *
-   * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
-   */
-  public function rules(): array
-  {
-    return [
-      //
-    ];
-  }
-```
-
 - vue\routes\web.php
 
 ```php
 use App\Http\Controllers\RoleController;
 Route::middleware('auth')->group(function () {
   Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
+  Route::post('/role', [RoleController::class, 'store'])->name('role.store');
   Route::patch('/role/{role}', [RoleController::class, 'update'])->name('role.update');
   Route::delete('/role/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
 });
@@ -335,7 +343,7 @@ defineProps({
   <AuthenticatedLayout>
     <template #header>
       <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Roles</h2>
+        <h2 class="p-1 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Roles</h2>
       </div>
     </template>
 

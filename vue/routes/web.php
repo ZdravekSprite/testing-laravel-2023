@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');
 Route::middleware('auth.admin')->group(function () {
   Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
+  Route::post('/role', [RoleController::class, 'store'])->name('role.store');
   Route::patch('/role/{role}', [RoleController::class, 'update'])->name('role.update');
   Route::delete('/role/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
   Route::get('/users', [UserController::class, 'index'])->name('user.index');
