@@ -1,5 +1,8 @@
 # Components NewForm
 
+- to-fix:
+  - [ ] refreshing parents array after adding new element
+
 - vue\resources\js\Components\NewForm.vue
 
 ```ts

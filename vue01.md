@@ -8,7 +8,7 @@ php artisan make:model Role -a
 
 ```php
   protected $hidden = [
-    'id',
+    //'id',
     'created_at',
     'updated_at',
   ];

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
   Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  Route::get('/types', [TypeController::class, 'index'])->name('type.index');
+  Route::post('/type', [TypeController::class, 'store'])->name('type.store');
+  Route::patch('/type/{type}', [TypeController::class, 'update'])->name('type.update');
+  Route::delete('/type/{type}', [TypeController::class, 'destroy'])->name('type.destroy');
 });
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');
