@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TypeController;
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');
+Route::post('/export', ExportController::class)->name('export');
 Route::middleware('auth.admin')->group(function () {
   Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
   Route::post('/role', [RoleController::class, 'store'])->name('role.store');

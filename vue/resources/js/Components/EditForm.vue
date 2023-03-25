@@ -39,6 +39,8 @@ const update = () => {
 
 const closeModal = () => {
   confirmingUpdate.value = false;
+
+  form.reset();
 };
 </script>
 
@@ -62,7 +64,7 @@ const closeModal = () => {
           <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
           <PrimaryButton class="ml-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
             @click="update">
-            Update Element
+            Update
           </PrimaryButton>
         </div>
       </div>

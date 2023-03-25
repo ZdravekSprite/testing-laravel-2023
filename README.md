@@ -81,7 +81,7 @@ cd vue && php artisan serve
     - [x] [EditForm](vue07.md)
     - [x] [DeleteForm](vue08.md)
   - [x] [Search](vue09.md)
-  - [ ] [Export](vue10.md)
+  - [x] [Export](vue10.md)
   - [ ] [Import](vue11.md)
   - [ ] [Pagination](vue12.md)
   - [ ] [Upgrade](vue13.md)
@@ -90,5 +90,5 @@ cd vue && php artisan serve
   - [ ] [Device](vue16.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.7.1" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.8.0" && git push
 ```

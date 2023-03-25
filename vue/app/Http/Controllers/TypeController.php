@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Type;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
-use App\Http\Requests\DestroyRoleRequest;
+use App\Http\Requests\DestroyTypeRequest;
 use Inertia\Inertia;
 
 class TypeController extends Controller
@@ -71,7 +71,7 @@ class TypeController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(DestroyRoleRequest $request, Type $type)
+  public function destroy(DestroyTypeRequest $request, Type $type)
   {
     $type->delete();
   }

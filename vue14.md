@@ -183,15 +183,14 @@ use Inertia\Inertia;
     $type->description = $request->description;
     $type->save();
   }
-  public function update(UpdateRoleRequest $request, Role $role)
+  public function update(UpdateTypeRequest $request, Type $type)
   {
-    $role->name = $request->name;
-    $role->description = $request->description;
-    $role->save();
+    $type->name = $request->name;
+    $type->description = $request->description;
+    $type->save();
   }
-  public function destroy(DestroyRoleRequest $request, Type $type)
+  public function destroy(DestroyTypeRequest $request, Type $type)
   {
-    dd($request);
     $type->delete();
   }
 ```
