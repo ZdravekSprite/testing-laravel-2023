@@ -60,7 +60,9 @@ class RoleController extends Controller
    */
   public function update(UpdateRoleRequest $request, Role $role)
   {
-    //
+    $role->name = $request->name;
+    $role->description = $request->description;
+    $role->save();
   }
 
   /**

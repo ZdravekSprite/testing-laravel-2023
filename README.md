@@ -77,7 +77,10 @@ cd vue && php artisan serve
   - [x] [Users](vue03.md)
   - [x] [Impersonate](vue04.md)
   - [x] [Components](vue05.md)
+    - [ ] [AddForm](vue06.md)
+    - [x] [EditForm](vue07.md)
+    - [x] [DeleteForm](vue08.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.6.2" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.6.3" && git push
 ```

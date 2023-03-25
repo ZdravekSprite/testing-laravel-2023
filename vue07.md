@@ -1,3 +1,8 @@
+# Components EditForm
+
+- vue\resources\js\Components\EditForm.vue
+
+```ts
 <script setup>
 import IconPen from '@/Components/IconPen.vue';
 import InputError from '@/Components/InputError.vue';
@@ -70,3 +75,33 @@ const closeModal = () => {
     </Modal>
   </div>
 </template>
+```
+
+- vue\resources\js\Components\IndexList.vue
+
+```ts
+<script setup>
+import EditForm from '@/Components/EditForm.vue';
+
+defineProps({
+  labels: {
+    type: Array,
+    default: [],
+  },
+  elements: {
+    type: Array,
+    default: [],
+  },
+  actionRoute: {
+    type: String,
+    default: '',
+  },
+});
+</script>
+
+<template>
+        <td v-if="actions.length && e.id > 1" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <EditForm v-if="actions.includes('edit')" class="float-left" :element="e" :updateRoute="(actionRoute + 'update')" :labels=labels />
+        </td>
+</template>
+```

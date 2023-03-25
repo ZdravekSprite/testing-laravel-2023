@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRoleRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateRoleRequest extends FormRequest
    */
   public function authorize(): bool
   {
-    return false;
+    return Role::find($this->id) && $this->user()->hasAnyRole('superadmin');
   }
 
   /**

@@ -1,3 +1,8 @@
+# Components DeleteForm
+
+- vue\resources\js\Components\DeleteForm.vue
+
+```ts
 <script setup>
 import DangerButton from '@/Components/DangerButton.vue';
 import IconTrash from '@/Components/IconTrash.vue';
@@ -58,3 +63,33 @@ const closeModal = () => {
     </Modal>
   </div>
 </template>
+```
+
+- vue\resources\js\Components\IndexList.vue
+
+```ts
+<script setup>
+import DeleteForm from '@/Components/DeleteForm.vue';
+
+defineProps({
+  elements: {
+    type: Array,
+    default: [],
+  },
+  actionRoute: {
+    type: String,
+    default: '',
+  },
+  actions: {
+    type: Array,
+    default: [],
+  },
+});
+</script>
+
+<template>
+        <td v-if="actions.length" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e" :deleteRoute="(actionRoute + 'destroy')" />
+        </td>
+</template>
+```

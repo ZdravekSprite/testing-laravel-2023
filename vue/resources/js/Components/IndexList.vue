@@ -37,9 +37,9 @@ defineProps({
         <td v-for="l in labels" :key="l.id" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           {{ e[l] }}
         </td>
-        <td v-if="actions.length" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          <EditForm v-if="actions.includes('edit')" class="float-left" :element="e" :labels=labels />
-          <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e" :deleteRoute="(actionRoute + 'destroy')" />
+        <td v-if="actions.length && e.id > 1" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <EditForm v-if="actions.includes('edit')" class="float-left" :element="e" :updateRoute="(actionRoute + 'update')" :labels=labels />
+          <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e" :destroyRoute="(actionRoute + 'destroy')" />
         </td>
       </tr>
     </tbody>

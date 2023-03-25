@@ -294,7 +294,8 @@ use App\Models\Role;
 ```php
 use App\Http\Controllers\RoleController;
 Route::middleware('auth')->group(function () {
-  Route::get('/role', [RoleController::class, 'index'])->name('role.index');
+  Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
+  Route::patch('/role/{role}', [RoleController::class, 'update'])->name('role.update');
   Route::delete('/role/{role}', [RoleController::class, 'destroy'])->name('role.destroy');
 });
 ```
