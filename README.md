@@ -82,5 +82,5 @@ cd vue && php artisan serve
     - [x] [DeleteForm](vue08.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.6.4" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.6.5" && git push
 ```

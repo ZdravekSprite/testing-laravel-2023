@@ -55,8 +55,7 @@ const closeModal = () => {
         </h2>
         <div v-for="l in labels" :key="l" class="mt-6">
           <InputLabel :for="l" :value="l.replace(/\b(\S)/g, (t) => { return t.toUpperCase() })" />
-          <TextInput :id="l" v-model="form[l]" type="text" class="mt-1 block w-3/4"
-            :placeholder="l" />
+          <TextInput :id="l" v-model="form[l]" type="text" class="mt-1 block w-3/4" :placeholder="l" />
           <InputError :message="form.errors[l]" class="mt-2" />
         </div>
         <div class="mt-6 flex justify-end">
