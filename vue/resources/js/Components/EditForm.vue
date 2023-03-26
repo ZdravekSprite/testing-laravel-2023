@@ -39,8 +39,8 @@ const update = () => {
 
 const closeModal = () => {
   confirmingUpdate.value = false;
-
   form.reset();
+  form.clearErrors();
 };
 </script>
 

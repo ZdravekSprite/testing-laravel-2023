@@ -4,6 +4,21 @@
 php artisan make:model Device -a
 ```
 
+- vue\database\migrations\2023_03_26_103026_create_devices_table.php
+
+```php
+    Schema::create('devices', function (Blueprint $table) {
+      $table->id();
+      $table->string('imei')->unique();
+      $table->string('gsm')->nullable();
+      $table->foreignId('type_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+      $table->foreignId('warehouse_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+      $table->foreignId('owner_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+      $table->string('description')->nullable();
+      $table->timestamps();
+    });
+```
+
 - vue\app\Models\Device.php
 
 ```php
@@ -12,46 +27,38 @@ php artisan make:model Device -a
     'updated_at',
   ];
   protected $fillable = [
-    'name',
+    'imei',
+    'gsm',
+    'type_id',
+    'warehouse_id',
+    'owner_id',
     'description',
   ];
-```
+  protected $appends = ['type', 'warehouse', 'owner'];
 
-- vue\database\migrations\2023_03_26_083303_create_devices_table.php
-
-```php
-    Schema::create('devices', function (Blueprint $table) {
-      $table->id();
-      $table->string('name')->unique();
-      $table->string('description')->nullable();
-      $table->timestamps();
-    });
+  public function getTypeAttribute()
+  {
+    $type = Type::where('id',$this->type_id)->first();
+    return $type->name;
+  }
+  public function getWarehouseAttribute()
+  {
+    $type = Warehouse::where('id',$this->warehouse_id)->first();
+    return $type->name;
+  }
+  public function getOwnerAttribute()
+  {
+    $type = Owner::where('id',$this->owner_id)->first();
+    return $type->name;
+  }
+  public function type(): BelongsTo
+  {
+    return $this->belongsTo(Type::class);
+  }
 ```
 
 ```bash
 php artisan migrate
-```
-
-- vue\database\seeders\DeviceSeeder.php
-
-```php
-use App\Models\Device;
-    if (!Device::where('name', 'unknown')->first()) {
-      Device::create([
-        'name' => 'unknown',
-        'description' => 'Unknown type'
-      ]);
-    }
-```
-
-- vue\database\seeders\DatabaseSeeder.php
-
-```php
-    $this->call(DeviceSeeder::class);
-```
-
-```bash
-php artisan db:seed --class=DeviceSeeder
 ```
 
 - vue\resources\js\Pages\Device.vue
@@ -68,6 +75,9 @@ import { Head } from '@inertiajs/vue3';
 import { ref, watch } from "vue"
 const props = defineProps({
   devices: Array,
+  types: Array,
+  warehouses: Array,
+  owners: Array,
 });
 
 const devices = ref(props.devices)
@@ -85,9 +95,11 @@ watch(search, () => {
     <template #header>
       <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
         <h2 class="p-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Devices</h2>
-        <NewForm :storeRoute="('device.store')" :labels="['name', 'description']" class="p-1" />
+        <NewForm :storeRoute="('device.store')"
+          :labels="[['imei'], ['gsm'], ['type', props.types], ['warehouse', props.warehouses], ['owner', props.owners], ['description']]"
+          class="p-1" />
         <ImportForm class="p-1" />
-        <ExportForm :elements="devices" class="p-1" />
+        <ExportForm :elements="devices" fileName="devices.csv" class="p-1" />
         <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
       </div>
     </template>
@@ -95,8 +107,8 @@ watch(search, () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-          <IndexList :elements="devices" :labels="['name', 'description']" actionRoute="device."
-            :actions="['edit', 'delete']" />
+          <IndexList :elements="devices" :labels="['imei', 'gsm', 'type', 'warehouse', 'owner', 'description']"
+            actionRoute="device." :actions="['edit', 'delete']" />
         </div>
       </div>
     </div>
@@ -114,7 +126,8 @@ watch(search, () => {
   public function rules(): array
   {
     return [
-      'name' => ['string', 'max:255', 'unique:devices'],
+      'imei' => ['string', 'max:255', 'unique:devices'],
+      'gsm' => ['nullable', 'string', 'max:255'],
       'description' => ['nullable', 'string', 'max:255'],
     ];
   }
@@ -132,7 +145,8 @@ use Illuminate\Validation\Rule;
   public function rules(): array
   {
     return [
-      'name' => ['string', 'max:255', Rule::unique(Device::class)->ignore($this->id)],
+      'imei' => ['string', 'max:255', Rule::unique(Device::class)->ignore($this->id)],
+      'gsm' => ['nullable', 'string', 'max:255'],
       'description' => ['nullable', 'string', 'max:255'],
     ];
   }
@@ -173,26 +187,37 @@ use Inertia\Inertia;
     return Inertia::render(
       'Device',
       [
-        'Device' => Device::all(),
+        'devices' => Device::all(),
+        'types' => Type::all(),
+        'warehouses' => Warehouse::all(),
+        'owners' => Owner::all(),
       ]
     );
   }
   public function store(StoreDeviceRequest $request)
   {
-    $Device = new Device();
-    $Device->name = $request->name;
-    $Device->description = $request->description;
-    $Device->save();
+    $device = new Device();
+    $device->imei = $request->imei;
+    $device->gsm = $request->gsm;
+    $device->type_id = $request->type;
+    $device->warehouse_id = $request->warehouse;
+    $device->owner_id = $request->owner;
+    $device->description = $request->description;
+    $device->save();
   }
-  public function update(UpdateDeviceRequest $request, Device $Device)
+  public function update(UpdateDeviceRequest $request, Device $device)
   {
-    $Device->name = $request->name;
-    $Device->description = $request->description;
-    $Device->save();
+    $device->imei = $request->imei;
+    $device->gsm = $request->gsm;
+    $device->type_id = $request->type;
+    $device->warehouse_id = $request->warehouse;
+    $device->owner_id = $request->owner;
+    $device->description = $request->description;
+    $device->save();
   }
-  public function destroy(DestroyDeviceRequest $request, Device $Device)
+  public function destroy(DestroyDeviceRequest $request, Device $device)
   {
-    $Device->delete();
+    $device->delete();
   }
 ```
 

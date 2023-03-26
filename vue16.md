@@ -173,7 +173,7 @@ use Inertia\Inertia;
     return Inertia::render(
       'Owner',
       [
-        'owner' => Owner::all(),
+        'owners' => Owner::all(),
       ]
     );
   }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
@@ -51,6 +52,10 @@ Route::middleware('auth')->group(function () {
   Route::post('/owner', [OwnerController::class, 'store'])->name('owner.store');
   Route::patch('/owner/{owner}', [OwnerController::class, 'update'])->name('owner.update');
   Route::delete('/owner/{owner}', [OwnerController::class, 'destroy'])->name('owner.destroy');
+  Route::get('/devices', [DeviceController::class, 'index'])->name('device.index');
+  Route::post('/device', [DeviceController::class, 'store'])->name('device.store');
+  Route::patch('/device/{device}', [DeviceController::class, 'update'])->name('device.update');
+  Route::delete('/device/{device}', [DeviceController::class, 'destroy'])->name('device.destroy');
 });
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');

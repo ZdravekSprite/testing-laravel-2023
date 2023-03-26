@@ -25,7 +25,7 @@ const confirmingStore = ref(false);
 
 const frmObj = {};
 for (let i = 0; i < props.labels.length; i++) {
-  frmObj[props.labels[i]] = "";
+  frmObj[props.labels[i][0]] = props.labels[i].length > 1 ? 1 : "" ;
 }
 const form = useForm(frmObj);
 
@@ -38,13 +38,12 @@ const create = () => {
     preserveScroll: true,
     onSuccess: () => closeModal(),
     onError: () => console.log('error'),
-    onFinish: () => form.reset(),
+    onFinish: () => {form.reset();form.clearErrors();},
   });
 };
 
 const closeModal = () => {
   confirmingStore.value = false;
-  form.reset();
 };
 </script>
 
@@ -60,9 +59,18 @@ const closeModal = () => {
           New?
         </h2>
         <div v-for="l in labels" :key="l" class="mt-6">
-          <InputLabel :for="l" :value="l.replace(/\b(\S)/g, (t) => { return t.toUpperCase() })" />
-          <TextInput :id="l" v-model="form[l]" type="text" class="mt-1 block w-3/4" :placeholder="l" />
-          <InputError :message="form.errors[l]" class="mt-2" />
+          <InputLabel :for="l[0]" :value="l[0].replace(/\b(\S)/g, (t) => { return t.toUpperCase() })" />
+          <div v-if="l.length == 1">
+            <TextInput :id="l[0]" v-model="form[l[0]]" type="text" class="mt-1 block w-3/4" :placeholder="l[0]" />
+          </div>
+          <div v-else>
+            <select
+              class="mt-1 block w-3/4 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+              :name="l[0]" :id="l[0]" v-model="form[l[0]]">
+              <option v-for="o in l[1]" :value="o.id">{{ o.name }}</option>
+            </select>
+          </div>
+          <InputError :message="form.errors[l[0]]" class="mt-2" />
         </div>
         <div class="mt-6 flex justify-end">
           <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
