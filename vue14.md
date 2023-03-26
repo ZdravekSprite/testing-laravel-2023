@@ -166,6 +166,7 @@ class DestroyTypeRequest extends FormRequest
 - vue\app\Http\Controllers\TypeController.php
 
 ```php
+use App\Http\Requests\DestroyTypeRequest;
 use Inertia\Inertia;
   public function index()
   {

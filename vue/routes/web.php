@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,6 +42,10 @@ Route::middleware('auth')->group(function () {
   Route::post('/type', [TypeController::class, 'store'])->name('type.store');
   Route::patch('/type/{type}', [TypeController::class, 'update'])->name('type.update');
   Route::delete('/type/{type}', [TypeController::class, 'destroy'])->name('type.destroy');
+  Route::get('/warehouses', [WarehouseController::class, 'index'])->name('warehouse.index');
+  Route::post('/warehouse', [WarehouseController::class, 'store'])->name('warehouse.store');
+  Route::patch('/warehouse/{warehouse}', [WarehouseController::class, 'update'])->name('warehouse.update');
+  Route::delete('/warehouse/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
 });
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');
