@@ -22,7 +22,7 @@ class StoreOwnerRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'name' => ['string', 'max:255', 'unique:warehouses'],
+      'name' => ['string', 'max:255', 'unique:owners'],
       'description' => ['nullable', 'string', 'max:255'],
     ];
   }
