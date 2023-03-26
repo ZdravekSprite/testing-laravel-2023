@@ -13,14 +13,18 @@ const props = defineProps({
     type: Array,
     default: [],
   },
+  fileName: {
+    type: String,
+    default: 'export.csv',
+  },
 });
 
 const confirmingExport = ref(false);
-const fileNameInput = ref('export.csv');
+const fileNameInput = ref(props.fileName);
 
 const form = useForm({
   arrayData: props.elements,
-  fileName: 'export.csv',
+  fileName: props.fileName,
 });
 
 const confirmExport = () => {

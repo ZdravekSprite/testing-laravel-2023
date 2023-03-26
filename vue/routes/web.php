@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TypeController;
@@ -46,6 +47,10 @@ Route::middleware('auth')->group(function () {
   Route::post('/warehouse', [WarehouseController::class, 'store'])->name('warehouse.store');
   Route::patch('/warehouse/{warehouse}', [WarehouseController::class, 'update'])->name('warehouse.update');
   Route::delete('/warehouse/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
+  Route::get('/owners', [OwnerController::class, 'index'])->name('owner.index');
+  Route::post('/owner', [OwnerController::class, 'store'])->name('owner.store');
+  Route::patch('/owner/{owner}', [OwnerController::class, 'update'])->name('owner.update');
+  Route::delete('/owner/{owner}', [OwnerController::class, 'destroy'])->name('owner.destroy');
 });
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');

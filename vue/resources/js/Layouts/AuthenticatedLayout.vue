@@ -44,6 +44,9 @@ const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 
                 <NavLink v-if="isAuth" :href="route('warehouse.index')" :active="route().current('warehouse.index')">
                   Warehouses
                 </NavLink>
+                <NavLink v-if="isAuth" :href="route('owner.index')" :active="route().current('owner.index')">
+                  Owners
+                </NavLink>
                 <NavLink v-if="isadmin" :href="route('role.index')" :active="route().current('role.index')">
                   Roles
                 </NavLink>
@@ -116,6 +119,9 @@ const isadmin = hasRole ? usePage().props.auth.user.roles.filter(r => r.name == 
             </ResponsiveNavLink>
             <ResponsiveNavLink v-if="isAuth" :href="route('warehouse.index')" :active="route().current('warehouse.index')">
               Warehouses
+            </ResponsiveNavLink>
+            <ResponsiveNavLink v-if="isAuth" :href="route('owner.index')" :active="route().current('owner.index')">
+              Owners
             </ResponsiveNavLink>
             <ResponsiveNavLink v-if="isadmin" :href="route('role.index')" :active="route().current('role.index')">
               Role

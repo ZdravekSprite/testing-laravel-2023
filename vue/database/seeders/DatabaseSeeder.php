@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
     User::factory(5)->create();
     $this->call(TypeSeeder::class);
     $this->call(WarehouseSeeder::class);
+    $this->call(OwnerSeeder::class);
   }
 }

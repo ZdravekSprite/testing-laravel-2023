@@ -28,7 +28,7 @@ watch(search, () => {
         <h2 class="p-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Types</h2>
         <NewForm :storeRoute="('type.store')" :labels="['name', 'description']" class="p-1" />
         <ImportForm class="p-1" />
-        <ExportForm :elements="types" class="p-1" />
+        <ExportForm :elements="types" fileName="types.csv" class="p-1" />
         <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
       </div>
     </template>
