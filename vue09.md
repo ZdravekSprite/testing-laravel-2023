@@ -21,3 +21,26 @@ watch(search, () => {
         <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
 </template>
 ```
+
+- vue\resources\js\Pages\Device.vue
+
+```ts
+<script setup>
+import TextInput from '@/Components/TextInput.vue';
+import { ref, watch } from "vue"
+const props = defineProps({
+  devices: Array,
+});
+
+const devices = ref(props.devices)
+const search = ref("")
+
+watch(search, () => {
+  devices.value = props.devices.filter(d => d.imei.toString().includes(search.value))
+})
+</script>
+
+<template>
+        <TextInput id="searchImei" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search imei..." />
+</template>
+```

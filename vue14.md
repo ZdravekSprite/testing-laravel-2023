@@ -54,7 +54,7 @@ use App\Models\Type;
 php artisan db:seed --class=TypeSeeder
 ```
 
-- vue\resources\js\Pages\Type\Index.vue
+- vue\resources\js\Pages\Type.vue
 
 ```ts
 <script setup>
@@ -74,7 +74,7 @@ const types = ref(props.types)
 const search = ref("")
 
 watch(search, () => {
-  types.value = props.types.filter(r => r.name.toString().includes(search.value))
+  types.value = props.types.filter(r => r.name.toString().toLowerCase().includes(search.value.toLowerCase()))
 })
 </script>
 
@@ -85,9 +85,9 @@ watch(search, () => {
     <template #header>
       <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
         <h2 class="p-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Types</h2>
-        <NewForm :storeRoute="('type.store')" :labels="['name', 'description']" class="p-1" />
+        <NewForm :storeRoute="('type.store')" :labels="[['name'], ['description']]" class="p-1" />
         <ImportForm class="p-1" />
-        <ExportForm class="p-1" />
+        <ExportForm :elements="types" fileName="types.csv" class="p-1" />
         <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
       </div>
     </template>
@@ -171,7 +171,7 @@ use Inertia\Inertia;
   public function index()
   {
     return Inertia::render(
-      'Type/Index',
+      'Type',
       [
         'types' => Type::all(),
       ]

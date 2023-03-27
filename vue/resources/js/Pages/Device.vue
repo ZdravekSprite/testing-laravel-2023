@@ -34,7 +34,7 @@ watch(search, () => {
           class="p-1" />
         <ImportForm fileName="devices.csv" model="Device" class="p-1" />
         <ExportForm :elements="devices" fileName="devices.csv" class="p-1" />
-        <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search imei..." />
+        <TextInput id="searchImei" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search imei..." />
       </div>
     </template>
 

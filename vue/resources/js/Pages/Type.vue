@@ -15,7 +15,7 @@ const types = ref(props.types)
 const search = ref("")
 
 watch(search, () => {
-  types.value = props.types.filter(r => r.name.toString().includes(search.value))
+  types.value = props.types.filter(r => r.name.toString().toLowerCase().includes(search.value.toLowerCase()))
 })
 </script>
 

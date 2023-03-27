@@ -16,7 +16,7 @@ class TypeController extends Controller
   public function index()
   {
     return Inertia::render(
-      'Type/Index',
+      'Type',
       [
         'types' => Type::all(),
       ]

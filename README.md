@@ -72,24 +72,25 @@ cd vue && php artisan serve
 
 - to-do:
   - [x] [Breeze](vue00.md)
-  - [x] [Role](vue01.md)
-  - [x] [AdminAccess](vue02.md)
-  - [x] [Users](vue03.md)
-  - [x] [Impersonate](vue04.md)
   - [x] [Components](vue05.md)
     - [x] [NewForm](vue06.md)
     - [x] [EditForm](vue07.md)
     - [x] [DeleteForm](vue08.md)
-  - [x] [Search](vue09.md)
-  - [x] [Export](vue10.md)
-  - [ ] [Import](vue11.md)
-  - [ ] [Pagination](vue12.md)
+    - [x] [Search](vue09.md)
+    - [x] [Export](vue10.md)
+    - [ ] [Import](vue11.md)
+    - [ ] [Pagination](vue12.md)
+  - [x] [Role](vue01.md)
+  - [x] [AdminAccess](vue02.md)
+  - [x] [Users](vue03.md)
+  - [x] [Impersonate](vue04.md)
   - [ ] [Upgrade](vue13.md)
   - [x] [Type](vue14.md)
   - [x] [Warehouse](vue15.md)
   - [x] [Owner](vue16.md)
   - [x] [Device](vue17.md)
+  - [ ] [Config](vue18.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.8.6" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.8.7" && git push
 ```
