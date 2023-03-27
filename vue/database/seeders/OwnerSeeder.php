@@ -16,7 +16,7 @@ class OwnerSeeder extends Seeder
     if (!Owner::where('name', 'unknown')->first()) {
       Owner::create([
         'name' => 'unknown',
-        'description' => 'Unknown type'
+        'description' => 'Unknown owner'
       ]);
     }
   }

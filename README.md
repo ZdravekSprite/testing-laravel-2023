@@ -89,8 +89,9 @@ cd vue && php artisan serve
   - [x] [Warehouse](vue15.md)
   - [x] [Owner](vue16.md)
   - [x] [Device](vue17.md)
-  - [ ] [Config](vue18.md)
+  - [x] [Config](vue18.md)
+  - [ ] [Partner](vue19.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.8.7" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.8.8" && git push
 ```

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function () {
   Route::post('/device', [DeviceController::class, 'store'])->name('device.store');
   Route::patch('/device/{device}', [DeviceController::class, 'update'])->name('device.update');
   Route::delete('/device/{device}', [DeviceController::class, 'destroy'])->name('device.destroy');
+  Route::get('/configs', [ConfigController::class, 'index'])->name('config.index');
+  Route::post('/config', [ConfigController::class, 'store'])->name('config.store');
+  Route::patch('/config/{config}', [ConfigController::class, 'update'])->name('config.update');
+  Route::delete('/config/{config}', [ConfigController::class, 'destroy'])->name('config.destroy');
 });
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');

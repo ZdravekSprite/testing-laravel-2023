@@ -2,21 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Warehouse;
+use App\Models\Config;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class WarehouseSeeder extends Seeder
+class ConfigSeeder extends Seeder
 {
   /**
    * Run the database seeds.
    */
   public function run(): void
   {
-    if (!Warehouse::where('name', 'unknown')->first()) {
-      Warehouse::create([
+    if (!Config::where('name', 'unknown')->first()) {
+      Config::create([
         'name' => 'unknown',
-        'description' => 'Unknown warehouse'
+        'description' => 'Unknown configuration'
       ]);
     }
   }

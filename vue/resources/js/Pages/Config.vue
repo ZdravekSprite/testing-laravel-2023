@@ -8,27 +8,27 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref, watch } from "vue"
 const props = defineProps({
-  owners: Array,
+  configs: Array,
 });
 
-const owners = ref(props.owners)
+const configs = ref(props.configs)
 const search = ref("")
 
 watch(search, () => {
-  owners.value = props.owners.filter(o => o.name.toString().toLowerCase().includes(search.value.toLowerCase()))
+  configs.value = props.configs.filter(c => c.name.toString().toLowerCase().includes(search.value.toLowerCase()))
 })
 </script>
 
 <template>
-  <Head title="Owners" />
+  <Head title="Configs" />
 
   <AuthenticatedLayout>
     <template #header>
       <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-        <h2 class="p-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Owners</h2>
-        <NewForm :storeRoute="('owner.store')" :labels="[['name'], ['description']]" class="p-1" />
+        <h2 class="p-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Configs</h2>
+        <NewForm :storeRoute="('config.store')" :labels="[['name'], ['description']]" class="p-1" />
         <ImportForm class="p-1" />
-        <ExportForm :elements="owners" fileName="owners.csv" class="p-1" />
+        <ExportForm :elements="configs" fileName="configs.csv" class="p-1" />
         <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
       </div>
     </template>
@@ -36,7 +36,7 @@ watch(search, () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-          <IndexList :elements="owners" :protect=15 :perPage=15 :labels="['name', 'description']" actionRoute="owner."
+          <IndexList :elements="configs" :protect=15 :perPage=15 :labels="['name', 'description']" actionRoute="config."
             :actions="['edit', 'delete']" />
         </div>
       </div>

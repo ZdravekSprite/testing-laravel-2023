@@ -19,6 +19,14 @@ defineProps({
     type: Array,
     default: [],
   },
+  protect: {
+    type: Number,
+    default: 15,
+  },
+  perPage: {
+    type: Number,
+    default: 15,
+  },
 });
 </script>
 
@@ -38,13 +46,13 @@ defineProps({
     </thead>
     <tbody>
       <tr v-for="(e, i) in elements" :key="e.id">
-        <template v-if="i <= 15">
+        <template v-if="i < perPage">
           <td v-if="elements[0].icon"><img v-if="e.icon" class="rounded-full shadow-xl" width="20" height="20"
               :src="e.icon" /></td>
           <td v-for="l in labels" :key="l.id" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             {{ e[l] }}
           </td>
-          <td v-if="actions.length && e.id > 1" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <td v-if="actions.length && i > protect" class="mt-1 text-sm text-gray-600 dark:text-gray-400">
             <EditForm v-if="actions.includes('edit')" class="float-left" :element="e"
               :updateRoute="(actionRoute + 'update')" :labels=labels />
             <DeleteForm v-if="actions.includes('delete')" class="float-right" :element="e"

@@ -39,7 +39,7 @@ use App\Models\Warehouse;
     if (!Warehouse::where('name', 'unknown')->first()) {
       Warehouse::create([
         'name' => 'unknown',
-        'description' => 'Unknown type'
+        'description' => 'Unknown warehouse'
       ]);
     }
 ```

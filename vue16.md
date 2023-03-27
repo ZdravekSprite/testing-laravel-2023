@@ -39,7 +39,7 @@ use App\Models\Owner;
     if (!Owner::where('name', 'unknown')->first()) {
       Owner::create([
         'name' => 'unknown',
-        'description' => 'Unknown type'
+        'description' => 'Unknown owner'
       ]);
     }
 ```
@@ -74,7 +74,7 @@ const owners = ref(props.owners)
 const search = ref("")
 
 watch(search, () => {
-  owners.value = props.owners.filter(w => w.name.toString().includes(search.value))
+  owners.value = props.owners.filter(o => o.name.toString().toLowerCase().includes(search.value.toLowerCase()))
 })
 </script>
 
@@ -85,9 +85,9 @@ watch(search, () => {
     <template #header>
       <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
         <h2 class="p-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Owners</h2>
-        <NewForm :storeRoute="('owner.store')" :labels="['name', 'description']" class="p-1" />
+        <NewForm :storeRoute="('owner.store')" :labels="[['name'], ['description']]" class="p-1" />
         <ImportForm class="p-1" />
-        <ExportForm :elements="owners" class="p-1" />
+        <ExportForm :elements="owners" fileName="owners.csv" class="p-1" />
         <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
       </div>
     </template>
@@ -95,7 +95,7 @@ watch(search, () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-          <IndexList :elements="owners" :labels="['name', 'description']" actionRoute="owner."
+          <IndexList :elements="owners" :protect=15 :perPage=15 :labels="['name', 'description']" actionRoute="owner."
             :actions="['edit', 'delete']" />
         </div>
       </div>
