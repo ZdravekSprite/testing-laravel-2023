@@ -13,27 +13,13 @@ class ExportController extends Controller
   {
     $fileName = $request->fileName;
     $arrayData = $request->arrayData;
-    /*
-    $headers = array(
-      "Content-type"        => "text/csv",
-      "Content-Disposition" => "attachment; filename=$fileName",
-      "Pragma"              => "no-cache",
-      "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-      "Expires"             => "0"
-    );
-    */
-    $columns = array('name', 'description');
-    //dd($fileName,$arrayData,$headers,$columns,public_path('temp/'.$fileName));
-    //$callback = function () use ($arrayData, $fileName, $columns) {
+    $columns = array_keys($arrayData[0]);
     $file = fopen(public_path('temp/' . $fileName), 'w');
     fputcsv($file, $columns);
 
     foreach ($arrayData as $data) {
-      fputcsv($file, array($data['name'], $data['description']));
+      fputcsv($file, $data);
     }
-
     fclose($file);
-    //};
-    //return response()->stream($callback, 200, $headers);
   }
 }

@@ -18,7 +18,7 @@ const devices = ref(props.devices)
 const search = ref("")
 
 watch(search, () => {
-  devices.value = props.devices.filter(d => d.name.toString().includes(search.value))
+  devices.value = props.devices.filter(d => d.imei.toString().includes(search.value))
 })
 </script>
 
@@ -32,9 +32,9 @@ watch(search, () => {
         <NewForm :storeRoute="('device.store')"
           :labels="[['imei'], ['gsm'], ['type', props.types], ['warehouse', props.warehouses], ['owner', props.owners], ['description']]"
           class="p-1" />
-        <ImportForm class="p-1" />
+        <ImportForm fileName="devices.csv" model="Device" class="p-1" />
         <ExportForm :elements="devices" fileName="devices.csv" class="p-1" />
-        <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search name..." />
+        <TextInput id="searchName" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search imei..." />
       </div>
     </template>
 

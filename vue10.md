@@ -50,11 +50,12 @@ use App\Http\Requests\ExportRequest;
   {
     $fileName = $request->fileName;
     $arrayData = $request->arrayData;
-    $columns = array('name', 'description');
+    $columns = array_keys($arrayData[0]);
     $file = fopen(public_path('temp/' . $fileName), 'w');
     fputcsv($file, $columns);
+
     foreach ($arrayData as $data) {
-      fputcsv($file, array($data['name'], $data['description']));
+      fputcsv($file, $data);
     }
     fclose($file);
   }

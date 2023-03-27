@@ -10,6 +10,9 @@ class Device extends Model
 {
   use HasFactory;
   protected $hidden = [
+    'type_id',
+    'warehouse_id',
+    'owner_id',
     'created_at',
     'updated_at',
   ];

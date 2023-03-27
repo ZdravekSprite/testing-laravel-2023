@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -60,6 +61,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/user/stop', [UserController::class, 'stop'])->name('user.stop');
 Route::post('/export', ExportController::class)->name('export');
+Route::post('/import', ImportController::class)->name('import');
 Route::middleware('auth.admin')->group(function () {
   Route::get('/roles', [RoleController::class, 'index'])->name('role.index');
   Route::post('/role', [RoleController::class, 'store'])->name('role.store');

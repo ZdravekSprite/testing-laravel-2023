@@ -91,5 +91,5 @@ cd vue && php artisan serve
   - [x] [Device](vue17.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.8.5" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.8.6" && git push
 ```
