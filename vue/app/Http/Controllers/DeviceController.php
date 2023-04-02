@@ -10,18 +10,28 @@ use App\Http\Requests\StoreDeviceRequest;
 use App\Http\Requests\UpdateDeviceRequest;
 use App\Http\Requests\DestroyDeviceRequest;
 use Inertia\Inertia;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class DeviceController extends Controller
 {
   /**
    * Display a listing of the resource.
    */
-  public function index()
+  public function index($type = null)
   {
+    if ($type) {
+      //dd(Type::find($type));
+      //$devices = Type::find($type)->devices()->get();
+      $types = Type::where('description', 'LIKE', '%'.$type.'%')->pluck('id');
+      //dd($types);
+      $devices = Device::whereIn('type_id', $types)->get();
+  } else {
+      $devices = Type::find(1)->devices()->get();
+    }
     return Inertia::render(
       'Device',
       [
-        'devices' => Device::all(),
+        'devices' => $devices,
         'types' => Type::all(),
         'warehouses' => Warehouse::all(),
         'owners' => Owner::all(),

@@ -36,7 +36,7 @@ watch(search, () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-          <IndexList :elements="types" :labels="['name', 'description']" actionRoute="type."
+          <IndexList :protect=1 :perPage=100 :elements="types" :labels="['name', 'description']" actionRoute="type."
             :actions="['edit', 'delete']" />
         </div>
       </div>

@@ -95,3 +95,33 @@ cd vue && php artisan serve
 ```bash
 git add . && git commit -am "Laravel 2023 Vue v0.8.8" && git push
 ```
+
+## Inertia
+
+```bash
+composer create-project laravel/laravel inertia
+touch inertia/database/database.sqlite
+```
+
+- inertia/.env
+
+```edit
+APP_NAME="Laravel 2023 Inertia"
+DB_CONNECTION=sqlite
+```
+
+```bash
+cd inertia && php artisan migrate:fresh --seed &&  cd ..
+```
+
+```bash
+cd inertia && npm install && npm run dev
+```
+
+```bash
+cd inertia && php artisan serve
+```
+
+```bash
+git add . && git commit -am "Laravel 2023 Inertia v0.1.0" && git push
+```

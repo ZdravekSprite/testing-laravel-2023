@@ -1,11 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import IndexList from '@/Components/IndexList.vue';
 import NewForm from '@/Components/NewForm.vue';
 import ImportForm from '@/Components/ImportForm.vue';
 import ExportForm from '@/Components/ExportForm.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import { ref, watch } from "vue"
 const props = defineProps({
   devices: Array,
@@ -41,7 +42,8 @@ watch(search, () => {
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-          <IndexList :elements="devices" :labels="['imei', 'gsm', 'type', 'warehouse', 'owner', 'description']"
+          <SecondaryButton v-for="t in types" :key="t.id"><Link :href="route('device.index',t.name)">{{ t.name }}</Link></SecondaryButton>
+          <IndexList :protect=20 :perPage=20 :elements="devices" :labels="['imei', 'gsm', 'type', 'warehouse', 'owner', 'description']"
             actionRoute="device." :actions="['edit', 'delete']" />
         </div>
       </div>

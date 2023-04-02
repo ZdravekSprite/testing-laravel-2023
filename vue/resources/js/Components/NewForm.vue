@@ -36,6 +36,7 @@ const create = () => {
 
 const closeModal = () => {
   confirmingStore.value = false;
+  form.reset();
 };
 </script>
 
