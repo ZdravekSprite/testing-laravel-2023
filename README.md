@@ -100,7 +100,10 @@ git add . && git commit -am "Laravel 2023 Vue v0.8.8" && git push
 
 ```bash
 composer create-project laravel/laravel inertia
-touch inertia/database/database.sqlite
+cd inertia
+touch database/database.sqlite
+composer require laravel/breeze --dev
+php artisan breeze:install --dark
 ```
 
 - inertia/.env
@@ -123,5 +126,5 @@ cd inertia && php artisan serve
 ```
 
 ```bash
-git add . && git commit -am "Laravel 2023 Inertia v0.1.0" && git push
+git add . && git commit -am "Laravel 2023 Inertia v0.2.0" && git push
 ```
