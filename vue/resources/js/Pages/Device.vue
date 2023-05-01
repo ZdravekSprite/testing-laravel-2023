@@ -43,7 +43,7 @@ watch(search, () => {
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
           <SecondaryButton v-for="t in types" :key="t.id"><Link :href="route('device.index',t.name)">{{ t.name }}</Link></SecondaryButton>
-          <IndexList :protect=20 :perPage=20 :elements="devices" :labels="['imei', 'gsm', 'type', 'warehouse', 'owner', 'description']"
+          <IndexList :protect=-1 :perPage=10 :elements="devices" :labels="[['imei'], ['gsm'], ['type', 'type_id', props.types], ['warehouse', 'warehouse_id', props.warehouses], ['owner', 'owner_id', props.owners], ['description']]"
             actionRoute="device." :actions="['edit', 'delete']" />
         </div>
       </div>

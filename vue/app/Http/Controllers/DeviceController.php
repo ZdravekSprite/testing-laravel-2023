@@ -22,24 +22,41 @@ class DeviceController extends Controller
     if ($type) {
       //dd(Type::find($type));
       //$devices = Type::find($type)->devices()->get();
-      $types = Type::where('description', 'LIKE', '%'.$type.'%')->pluck('id');
+      $types = Type::where('description', 'LIKE', '%' . $type . '%')->pluck('id');
       //dd($types);
       $devices = Device::whereIn('type_id', $types)->get();
-  } else {
+    } else {
       $devices = Type::find(1)->devices()->get();
     }
     return Inertia::render(
       'Device',
       [
-        'devices' => $devices,
-        'types' => Type::all(),
-        'warehouses' => Warehouse::all()->map(fn($w) => [
-          'id' => $w->id,
-          'name' => $w->namwe
+        'devices' => $devices->map(fn ($d) => [
+          'id' => $d->id,
+          'imei' => $d->imei,
+          'gsm' => $d->gsm,
+          'type' => $d->type,
+          'type_id' => $d->type_id,
+          'warehouse' => $d->warehouse,
+          'warehouse_id' => $d->warehouse_id,
+          'owner' => $d->owner,
+          'owner_id' => $d->owner_id,
+          'description' => $d->description,
         ]),
-        'owners' => Owner::all()->map(fn($o) => [
+        'types' => Type::all()->map(fn ($t) => [
+          'id' => $t->id,
+          'name' => $t->name,
+          'description' => $t->description,
+        ]),
+        'warehouses' => Warehouse::all()->map(fn ($w) => [
+          'id' => $w->id,
+          'name' => $w->name,
+          'description' => $w->description,
+        ]),
+        'owners' => Owner::all()->map(fn ($o) => [
           'id' => $o->id,
-          'name' => $o->namwe
+          'name' => $o->name,
+          'description' => $o->description,
         ]),
       ]
     );

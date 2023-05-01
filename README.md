@@ -93,7 +93,7 @@ cd vue && php artisan serve
   - [ ] [Partner](vue19.md)
 
 ```bash
-git add . && git commit -am "Laravel 2023 Vue v0.8.9" && git push
+git add . && git commit -am "Laravel 2023 Vue v0.8.10" && git push
 ```
 
 ## Inertia
