@@ -17,7 +17,7 @@ const confirmingStore = ref(false);
 
 const frmObj = {};
 for (let i = 0; i < props.labels.length; i++) {
-  frmObj[props.labels[i][0]] = props.labels[i].length > 1 ? 1 : "" ;
+  frmObj[props.labels[i][0]] = props.labels[i].length > 1 ? 1 : "";
 }
 const form = useForm(frmObj);
 
@@ -30,7 +30,7 @@ const create = () => {
     preserveScroll: true,
     onSuccess: () => closeModal(),
     onError: () => console.log('error'),
-    onFinish: () => {form.reset();form.clearErrors();},
+    onFinish: () => { form.reset(); form.clearErrors(); },
   });
 };
 
@@ -42,27 +42,30 @@ const closeModal = () => {
 
 <template>
   <div>
-    <SecondaryButton @click="confirmStore">
-      New
-    </SecondaryButton>
+    <SecondaryButton @click="confirmStore"> New </SecondaryButton>
 
     <Modal :show="confirmingStore" @close="closeModal">
       <div class="p-6">
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-          New?
+          New {{ props.storeRoute.split(".")[0].replace(/\b(\S)/g, (t) => { return t.toUpperCase() }) }}?
         </h2>
         <div v-for="l in labels" :key="l" class="mt-6">
           <InputLabel :for="l[0]" :value="l[0].replace(/\b(\S)/g, (t) => { return t.toUpperCase() })" />
-          <div v-if="l.length == 1">
-            <TextInput :id="l[0]" v-model="form[l[0]]" type="text" class="mt-1 block w-3/4" :placeholder="l[0]" />
-          </div>
-          <div v-else>
+          <template v-if="l.length == 1">
+            <template v-if="l[0] == 'date'">
+              <TextInput :id="l[0]" v-model="form[l[0]]" type="date" class="mt-1 block w-3/4" :placeholder="l[0]" />
+            </template>
+            <template v-else>
+              <TextInput :id="l[0]" v-model="form[l[0]]" type="text" class="mt-1 block w-3/4" :placeholder="l[0]" />
+            </template>
+          </template>
+          <template v-else>
             <select
               class="mt-1 block w-3/4 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
               :name="l[0]" :id="l[0]" v-model="form[l[0]]">
               <option v-for="o in l[1]" :value="o.id">{{ o.name }}</option>
             </select>
-          </div>
+          </template>
           <InputError :message="form.errors[l[0]]" class="mt-2" />
         </div>
         <div class="mt-6 flex justify-end">

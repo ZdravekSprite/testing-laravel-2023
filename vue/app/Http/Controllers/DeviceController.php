@@ -33,8 +33,14 @@ class DeviceController extends Controller
       [
         'devices' => $devices,
         'types' => Type::all(),
-        'warehouses' => Warehouse::all(),
-        'owners' => Owner::all(),
+        'warehouses' => Warehouse::all()->map(fn($w) => [
+          'id' => $w->id,
+          'name' => $w->namwe
+        ]),
+        'owners' => Owner::all()->map(fn($o) => [
+          'id' => $o->id,
+          'name' => $o->namwe
+        ]),
       ]
     );
   }
