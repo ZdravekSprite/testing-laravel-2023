@@ -162,5 +162,5 @@ php artisan serve
 ```
 
 ```bash
-git add . && git commit -am "Laravel 2023 Binance v0.0.2" && git push
+git add . && git commit -am "Laravel 2023 Binance v0.0.3" && git push
 ```
