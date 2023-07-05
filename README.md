@@ -161,6 +161,12 @@ npm install && npm run dev
 php artisan serve
 ```
 
+## Binance model
+
 ```bash
-git add . && git commit -am "Laravel 2023 Binance v0.0.3" && git push
+php artisan make:model Binance -a
+```
+
+```bash
+git add . && git commit -am "Laravel 2023 Binance v0.1.0" && git push
 ```
