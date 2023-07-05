@@ -24,14 +24,16 @@ class DeviceController extends Controller
       //$devices = Type::find($type)->devices()->get();
       $types = Type::where('description', 'LIKE', '%' . $type . '%')->pluck('id');
       //dd($types);
-      $devices = Device::whereIn('type_id', $types)->get();
+      $devices = Device::whereIn('type_id', $types);
     } else {
-      $devices = Type::find(1)->devices()->get();
+      $devices = Type::find(1)->devices();
     }
+    $devices = $devices->paginate(10);
     return Inertia::render(
       'Device',
       [
-        'devices' => $devices->map(fn ($d) => [
+        'devices' => $devices,
+/*        'devices' => $devices->map(fn ($d) => [
           'id' => $d->id,
           'imei' => $d->imei,
           'gsm' => $d->gsm,
@@ -42,7 +44,7 @@ class DeviceController extends Controller
           'owner' => $d->owner,
           'owner_id' => $d->owner_id,
           'description' => $d->description,
-        ]),
+        ]),*/
         'types' => Type::all()->map(fn ($t) => [
           'id' => $t->id,
           'name' => $t->name,

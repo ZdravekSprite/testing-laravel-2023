@@ -5,22 +5,13 @@ import IndexList from '@/Components/IndexList.vue';
 import NewForm from '@/Components/NewForm.vue';
 import ImportForm from '@/Components/ImportForm.vue';
 import ExportForm from '@/Components/ExportForm.vue';
-import TextInput from '@/Components/TextInput.vue';
 import { Link, Head } from '@inertiajs/vue3';
-import { ref, watch } from "vue"
 const props = defineProps({
-  devices: Array,
+  devices: Object,
   types: Array,
   warehouses: Array,
   owners: Array,
 });
-
-const devices = ref(props.devices)
-const search = ref("")
-
-watch(search, () => {
-  devices.value = props.devices.filter(d => d.imei.toString().includes(search.value))
-})
 </script>
 
 <template>
@@ -34,19 +25,23 @@ watch(search, () => {
           :labels="[['imei'], ['gsm'], ['type', props.types], ['warehouse', props.warehouses], ['owner', props.owners], ['description']]"
           class="p-1" />
         <ImportForm fileName="devices.csv" model="Device" class="p-1" />
-        <ExportForm :elements="devices" fileName="devices.csv" class="p-1" />
-        <TextInput id="searchImei" v-model.trim="search" type="text" class="block w-3/4" placeholder="Search imei..." />
+        <ExportForm :elements="props.devices.data" fileName="devices.csv" class="p-1" />
       </div>
     </template>
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-          <SecondaryButton v-for="t in types" :key="t.id"><Link :href="route('device.index',t.name)">{{ t.name }}</Link></SecondaryButton>
-          <IndexList :protect=-1 :perPage=10 :elements="devices" :labels="[['imei'], ['gsm'], ['type', 'type_id', props.types], ['warehouse', 'warehouse_id', props.warehouses], ['owner', 'owner_id', props.owners], ['description']]"
+          <SecondaryButton v-for="t in types" :key="t.id">
+            <Link :href="route('device.index', t.name)">{{ t.name }}</Link>
+          </SecondaryButton>
+          <IndexList :protect=-1 :elements="props.devices.data"
+            :labels="[['imei'], ['gsm'], ['type', 'type_id', props.types], ['warehouse', 'warehouse_id', props.warehouses], ['owner', 'owner_id', props.owners], ['description']]"
             actionRoute="device." :actions="['edit', 'delete']" />
+          <SecondaryButton v-for="l in props.devices.links" :key="l.id">
+            <Link :href="l.url" v-html="l.label" />
+          </SecondaryButton>
         </div>
       </div>
-    </div>
-  </AuthenticatedLayout>
-</template>
+  </div>
+</AuthenticatedLayout></template>

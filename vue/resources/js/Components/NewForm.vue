@@ -47,7 +47,7 @@ const closeModal = () => {
     <Modal :show="confirmingStore" @close="closeModal">
       <div class="p-6">
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-          New {{ props.storeRoute.split(".")[0].replace(/\b(\S)/g, (t) => { return t.toUpperCase() }) }}?
+          New {{props.storeRoute.split(".")[0].replace(/\b(\S)/g, (t) => { return t.toUpperCase() })}}?
         </h2>
         <div v-for="l in labels" :key="l" class="mt-6">
           <InputLabel :for="l[0]" :value="l[0].replace(/\b(\S)/g, (t) => { return t.toUpperCase() })" />

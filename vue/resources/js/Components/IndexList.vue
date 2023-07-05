@@ -1,7 +1,6 @@
 <script setup>
 import DeleteForm from '@/Components/DeleteForm.vue';
 import EditForm from '@/Components/EditForm.vue';
-import { Link } from '@inertiajs/vue3';
 const props = defineProps({
   labels: {
     type: Array,

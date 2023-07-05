@@ -128,3 +128,29 @@ cd inertia && php artisan serve
 ```bash
 git add . && git commit -am "Laravel 2023 Inertia v0.2.0" && git push
 ```
+
+## Binance
+
+```bash
+composer create-project laravel/laravel binance
+touch binance/database/database.sqlite
+```
+
+- binance/.env
+
+```edit
+APP_NAME="Laravel 2023 Binance"
+DB_CONNECTION=sqlite
+API_KEY=API_KEY
+API_SECRET=API_SECRET
+```
+
+```bash
+cd binance
+php artisan migrate:fresh --seed
+php artisan serve
+```
+
+```bash
+git add . && git commit -am "Laravel 2023 Binance v0.0.1" && git push
+```
