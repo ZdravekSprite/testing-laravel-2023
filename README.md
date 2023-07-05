@@ -151,6 +151,16 @@ php artisan migrate:fresh --seed
 php artisan serve
 ```
 
+## Breeze
+
 ```bash
-git add . && git commit -am "Laravel 2023 Binance v0.0.1" && git push
+composer require laravel/breeze --dev
+php artisan breeze:install
+php artisan migrate:fresh
+npm install && npm run dev
+php artisan serve
+```
+
+```bash
+git add . && git commit -am "Laravel 2023 Binance v0.0.2" && git push
 ```
