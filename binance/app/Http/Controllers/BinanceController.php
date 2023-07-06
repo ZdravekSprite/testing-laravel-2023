@@ -41,7 +41,7 @@ class BinanceController extends Controller
         'timestamp' => $serverTime,
         'signature' => $signature
       ]));
-      dd($getall);
+      //dd($getall);
     }
     return view('binance.index', [
       'binance' => $binance,
