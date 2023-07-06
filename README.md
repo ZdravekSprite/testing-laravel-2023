@@ -168,5 +168,5 @@ php artisan make:model Binance -a
 ```
 
 ```bash
-git add . && git commit -am "Laravel 2023 Binance v0.1.1" && git push
+git add . && git commit -am "Laravel 2023 Binance v0.1.2" && git push
 ```
