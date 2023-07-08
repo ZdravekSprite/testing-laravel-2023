@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Binance;
 use App\Models\Coin;
 use App\Models\Network;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreCoinRequest;
 use App\Http\Requests\UpdateCoinRequest;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,70 @@ use Illuminate\Support\Facades\Http;
 
 class CoinController extends Controller
 {
+  public function chart(Request $request)
+  {
+    $show = $request->input('show');
+    $trades = collect([]);
+    $symbols_list = ['ETH', 'BNB', 'SOL', 'MATIC', 'ADA', 'DOT', 'XMR'];
+    $symbols = [
+      ['BTCBUSD', [], [], [], '1d'],
+      ['BTCBUSD', [], [], [], '1h'],
+      ['BTCBUSD', [], [], [], '1m']
+    ];
+    foreach ($symbols_list as $symbol) {
+      $symbols[] = [$symbol . 'BTC', [], [], [], '1h'];
+      $symbols[] = [$symbol . 'BUSD', [], [], [], '1d'];
+      $symbols[] = [$symbol . 'BUSD', [], [], [], '1h'];
+      $symbols[] = [$symbol . 'BUSD', [], [], [], '1m'];
+    }
+    $symbols[] = ['BTCEUR', [], [], [], '1h'];
+    $symbols[] = ['EURBUSD', [], [], [], '1d'];
+    $symbols[] = ['EURBUSD', [], [], [], '1h'];
+    $symbols[] = ['EURBUSD', [], [], [], '1m'];
+    foreach ($symbols as $key => $symbol) {
+      $symbol_info = '';
+      $symbols[$key][5] = 5;
+      if (isset($openOrders)) {
+        foreach ($openOrders as $order) {
+          if ($order->symbol == $symbol[0]) {
+            if ($order->side == 'BUY') {
+              $symbols[$key][1][$order->orderId] = $order->price;
+            }
+            if ($order->side == 'SELL') {
+              $symbols[$key][2][$order->orderId] = $order->price;
+            }
+          }
+        }
+      }
+    }
+    $func = function ($n) {
+      return strtolower($n[0]) . '@kline_1m';
+    };
+    $link = implode('/', array_map($func, $symbols));
+
+    $chartWidth = 627; //313 470 627;
+    $chartWidth_btc = 417; // 207 417
+    $chartHeight = 310; //230 310 465;
+    switch ($show) {
+      case 'all':
+        $chartWidth = 313;
+        $chartWidth_btc = 207;
+        $chartHeight = 310;
+        break;
+      case 'big':
+        $chartWidth = 627;
+        $chartWidth_btc = 417;
+        $chartHeight = 310;
+        break;
+      case 'one':
+        $chartWidth = 627;
+        $chartWidth_btc = 417;
+        $chartHeight = 465;
+        break;
+    }
+    return view('chart')->with(compact('symbols', 'link', 'chartWidth', 'chartWidth_btc', 'chartHeight'));
+  }
+
   /**
    * Display a listing of the resource.
    */

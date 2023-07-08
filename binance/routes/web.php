@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
   Route::get('/binance', [BinanceController::class, 'index'])->name('binance.index');
   Route::patch('/binance', [BinanceController::class, 'update'])->name('binance.update');
 
+  Route::get('/chart', [CoinController::class, 'chart'])->name('chart');
   Route::get('/coins', [CoinController::class, 'index'])->name('coin.index');
 });
 
