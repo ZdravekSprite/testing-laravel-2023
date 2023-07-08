@@ -28,16 +28,35 @@ class BinanceController extends Controller
       $binance->api_secret = '';
       $binance->save();
     }
+    if ($binance->api_key == '' || $binance->api_secret == '') return view('binance.index', ['binance' => $binance]);
+    //$stakingF = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/staking/productList',array("product" => 'F_DEFI'));
+    //$stakingL = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/staking/productList',array("product" => 'L_DEFI'));
+    //$simpleF = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/simple-earn/flexible/list');
+    //$simpleL = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/simple-earn/locked/list');
+    //$getF = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/simple-earn/flexible/position');
+    $getL = (new EarnController)->simpleEarnLockedPosition()->map(fn ($asset) => [
+      'asset' => $asset->asset,
+      'amount' => $asset->amount,
+    ]);
+    //dd($stakingF,$stakingL,$simpleF,$simpleL,$getF,$getL);
+    //dd($getL);
     $lendingAccount = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/lending/union/account');
     $positionAmountVos = $lendingAccount->positionAmountVos;
-    $allCoinsInformation = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/capital/config/getall');
-    $collection = collect($allCoinsInformation);
-    $filtered = $collection->map(function ($coin) use ($positionAmountVos) {
-      $lendingAsset = collect($positionAmountVos)->filter(function ($value, $key) use ($coin) {
+    //$allCoinsInformation = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/capital/config/getall');
+    $allCoins = (new CoinController)->capitalConfigGetall();
+    //$collection = collect($allCoins);
+    $filtered = $allCoins->map(function ($coin) use ($positionAmountVos, $getL) {
+      $lending = collect($positionAmountVos)->filter(function ($value, $key) use ($coin) {
         return $value->asset == $coin->coin;
-      })->first();
-      $lending = $lendingAsset ? $lendingAsset->amount * 1 : 0;
-      $all = $lending + $coin->free + $coin->locked + $coin->freeze + $coin->withdrawing + $coin->ipoing + $coin->ipoable + $coin->storage;
+      })->reduce(function ($sum, $value) {
+        return $sum * 1 + $value->amount;
+      }) ?? 0;
+      $earn = collect($getL)->filter(function ($value, $key) use ($coin) {
+        return $value['asset'] == $coin->coin;
+      })->reduce(function ($sum, $value) {
+        return $sum * 1 + $value['amount'];
+      }) ?? 0;
+      $all = $earn + $lending + $coin->free + $coin->locked + $coin->freeze + $coin->withdrawing + $coin->ipoing + $coin->ipoable + $coin->storage;
       return [
         'coin' => $coin->coin,
         'depositAllEnable' => $coin->depositAllEnable,
@@ -51,6 +70,7 @@ class BinanceController extends Controller
         'ipoable' => $coin->ipoable * 1,
         'storage' => $coin->storage * 1,
         'lending' => $lending,
+        'earn' => $earn,
         'all' => $all,
         'isLegalMoney' => $coin->isLegalMoney,
         'trading' => $coin->trading,

@@ -88,7 +88,7 @@ class CoinController extends Controller
     ]);
   }
 
-  public function getall()
+  public function capitalConfigGetall()
   {
     $user = Auth::user();
     $binance = Binance::whereUserId($user->id)->first();
@@ -104,22 +104,22 @@ class CoinController extends Controller
       $apiSecret = $binance->api_secret;
       $time = json_decode(Http::get('https://api.binance.com/api/v3/time'));
       $serverTime = $time->serverTime;
-      if ($binance->getall + 100000 < $serverTime) {
-        $binance->getall = $serverTime;
+      if ($binance->capital_config_getall + $binance->timeout < $serverTime) {
+        $binance->capital_config_getall = $serverTime;
         $binance->save();
         $timeStamp = 'timestamp=' . $serverTime;
         $signature = hash_hmac('SHA256', $timeStamp, $apiSecret);
-        $getall = json_decode(Http::withHeaders([
+        $capitalConfigGetall = json_decode(Http::withHeaders([
           'X-MBX-APIKEY' => $apiKey
         ])->get('https://api.binance.com/sapi/v1/capital/config/getall', [
           'timestamp' => $serverTime,
           'signature' => $signature
         ]));
-        //dd($getall[0], $getall[10], $getall[20]);
-        foreach ($getall as $key => $value) {
+        foreach ($capitalConfigGetall as $key => $value) {
           $coin = Coin::whereCoin($value->coin)->first();
           if (!$coin) $coin = new Coin();
           $coin->coin = $value->coin;
+          $coin->user_id = $user->id;
           $coin->depositAllEnable = $value->depositAllEnable;
           $coin->withdrawAllEnable = $value->withdrawAllEnable;
           $coin->name = $value->name;
@@ -171,13 +171,11 @@ class CoinController extends Controller
           }
         }
       } else {
-        dd($serverTime, $binance->getall);
+        //dd('capitalConfigGetall', $serverTime, $binance->capital_config_getall);
       }
     }
-    $coins = Coin::all();
-    return view('coin.index', [
-      'coins' => $coins,
-    ]);
+    $capitalConfigGetall = Coin::all();
+    return $capitalConfigGetall;
   }
   /**
    * Show the form for creating a new resource.

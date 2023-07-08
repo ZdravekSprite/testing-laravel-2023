@@ -21,6 +21,12 @@
       <x-input-error class="mt-2" :messages="$errors->get('api_secret')" />
     </div>
 
+    <div>
+      <x-input-label for="timeout" :value="__('Timeout')" />
+      <x-text-input id="timeout" name="timeout" type="integer" class="mt-1 block w-full" :value="old('timeout', $binance->timeout)" required autocomplete="timeout" />
+      <x-input-error class="mt-2" :messages="$errors->get('timeout')" />
+    </div>
+
     <div class="flex items-center gap-4">
       <x-primary-button>{{ __('Save') }}</x-primary-button>
 

@@ -16,7 +16,9 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
       $table->string('api_key')->nullable();
       $table->string('api_secret')->nullable();
-      $table->date('getall')->nullable();
+      $table->integer('timeout')->default(10000000);
+      $table->date('capital_config_getall')->nullable();
+      $table->date('simple_earn_locked_position')->nullable();
       $table->timestamps();
     });
   }

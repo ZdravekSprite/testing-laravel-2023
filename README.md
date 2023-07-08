@@ -179,6 +179,12 @@ php artisan make:model Coin -a
 php artisan make:model Network -a
 ```
 
+## Earn model
+
 ```bash
-git add . && git commit -am "Laravel 2023 Binance v0.2.5" && git push
+php artisan make:model Earn -a
+```
+
+```bash
+git add . && git commit -am "Laravel 2023 Binance v0.3.0" && git push
 ```
