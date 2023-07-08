@@ -57,8 +57,37 @@ class BinanceController extends Controller
       ];
     })->filter(function ($value, $key) {
       return $value['all'] > 0;
+    })->map(function ($coin) {
+      $price = 0;
+      if ($coin['coin'] == 'EUR') $price = 1;
+      if (!$price) {
+        $params = '?symbol=' . $coin['coin'] . 'EUR';
+        $ticker = (new BinanceHelpers)->get('https://api.binance.com/api/v3/ticker/price' . $params);
+        $price = isset($ticker->price) ? $ticker->price * 1 : 0;
+      }
+      if (!$price) {
+        $params = '?symbol=EUR' . $coin['coin'];
+        $ticker = (new BinanceHelpers)->get('https://api.binance.com/api/v3/ticker/price' . $params);
+        $price = isset($ticker->price) ? 1 / $ticker->price : 0;
+      }
+      if (!$price) {
+        $BUSD = (new BinanceHelpers)->get('https://api.binance.com/api/v3/ticker/price?symbol=EURBUSD')->price;
+        $params = '?symbol=' . $coin['coin'] . 'BUSD';
+        $ticker = (new BinanceHelpers)->get('https://api.binance.com/api/v3/ticker/price' . $params);
+        $price = isset($ticker->price) ? $ticker->price / $BUSD : 0;
+      }
+      if (!$price) {
+        $params = '?symbol=BUSD' . $coin['coin'];
+        $ticker = (new BinanceHelpers)->get('https://api.binance.com/api/v3/ticker/price' . $params);
+        $price = isset($ticker->price) ? $BUSD / $ticker->price : 0;
+      }
+      return  [
+        ...$coin,
+        'price' => $price,
+      ];
     });
-    //dd($filtered,$allCoinsInformation);
+    //dd($filtered, $allCoinsInformation);
+    //dd($filtered);
     return view('binance.index', [
       'binance' => $binance,
       'coins' => $filtered,

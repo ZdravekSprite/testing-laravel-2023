@@ -5,7 +5,7 @@
     </h2>
     @if(count($coins) > 0)
     @foreach($coins as $coin)
-    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ $coin['name'] }} ({{ $coin['all'].' '.$coin['coin'] }})</p>
+    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ $coin['name'] }} ({{ $coin['all'].' '.$coin['coin'] }} - {{ round($coin['all'] * $coin['price'],2) }}€)</p>
     @endforeach
     @else
     <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __('No coin found') }}</p>

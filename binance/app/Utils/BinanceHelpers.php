@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 
 class BinanceHelpers
 {
-  public static function getHttp($url, $array = null)
+  public function getHttp($url, $array = null)
   {
     $user = Auth::user();
     $binance = Binance::whereUserId($user->id)->first();
@@ -36,5 +36,10 @@ class BinanceHelpers
       ])->get($url, $getArray));
     }
     return $json;
+  }
+  public function get($url)
+  {
+    $http_get = json_decode(Http::get($url));
+    return $http_get;
   }
 }
