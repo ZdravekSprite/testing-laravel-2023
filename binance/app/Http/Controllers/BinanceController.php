@@ -28,10 +28,40 @@ class BinanceController extends Controller
       $binance->api_secret = '';
       $binance->save();
     }
-    $lendingAccount = BinanceHelpers::getHttp('https://api.binance.com/sapi/v1/lending/union/account');
-    dd($lendingAccount);
+    $lendingAccount = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/lending/union/account');
+    $positionAmountVos = $lendingAccount->positionAmountVos;
+    $allCoinsInformation = (new BinanceHelpers)->getHttp('https://api.binance.com/sapi/v1/capital/config/getall');
+    $collection = collect($allCoinsInformation);
+    $filtered = $collection->map(function ($coin) use ($positionAmountVos) {
+      $lendingAsset = collect($positionAmountVos)->filter(function ($value, $key) use ($coin) {
+        return $value->asset == $coin->coin;
+      })->first();
+      $lending = $lendingAsset ? $lendingAsset->amount * 1 : 0;
+      $all = $lending + $coin->free + $coin->locked + $coin->freeze + $coin->withdrawing + $coin->ipoing + $coin->ipoable + $coin->storage;
+      return [
+        'coin' => $coin->coin,
+        'depositAllEnable' => $coin->depositAllEnable,
+        'withdrawAllEnable' => $coin->withdrawAllEnable,
+        'name' => $coin->name,
+        'free' => $coin->free * 1,
+        'locked' => $coin->locked * 1,
+        'freeze' => $coin->freeze * 1,
+        'withdrawing' => $coin->withdrawing * 1,
+        'ipoing' => $coin->ipoing * 1,
+        'ipoable' => $coin->ipoable * 1,
+        'storage' => $coin->storage * 1,
+        'lending' => $lending,
+        'all' => $all,
+        'isLegalMoney' => $coin->isLegalMoney,
+        'trading' => $coin->trading,
+      ];
+    })->filter(function ($value, $key) {
+      return $value['all'] > 0;
+    });
+    //dd($filtered,$allCoinsInformation);
     return view('binance.index', [
       'binance' => $binance,
+      'coins' => $filtered,
     ]);
   }
 
