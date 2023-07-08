@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Binance;
-use App\Models\Coin;
-use App\Models\Network;
 use App\Http\Requests\StoreBinanceRequest;
 use App\Http\Requests\UpdateBinanceRequest;
+use App\Utils\BinanceHelpers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -30,6 +28,8 @@ class BinanceController extends Controller
       $binance->api_secret = '';
       $binance->save();
     }
+    $lendingAccount = BinanceHelpers::getHttp('https://api.binance.com/sapi/v1/lending/union/account');
+    dd($lendingAccount);
     return view('binance.index', [
       'binance' => $binance,
     ]);
