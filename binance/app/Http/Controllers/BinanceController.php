@@ -88,9 +88,13 @@ class BinanceController extends Controller
     });
     //dd($filtered, $allCoinsInformation);
     //dd($filtered);
+    $sum = $filtered->reduce(function ($sum, $value) {
+      return $sum + ($value['all'] * $value['price']);
+    });
     return view('binance.index', [
       'binance' => $binance,
       'coins' => $filtered,
+      'sum' => $sum,
     ]);
   }
 
