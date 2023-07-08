@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Binance;
+use App\Models\Coin;
+use App\Models\Network;
 use App\Http\Requests\StoreBinanceRequest;
 use App\Http\Requests\UpdateBinanceRequest;
 use Illuminate\Http\RedirectResponse;
@@ -27,21 +29,6 @@ class BinanceController extends Controller
       $binance->api_key = '';
       $binance->api_secret = '';
       $binance->save();
-    }
-    if ($binance->api_key != '' && $binance->api_secret != '') {
-      $apiKey = $binance->api_key;
-      $apiSecret = $binance->api_secret;
-      $time = json_decode(Http::get('https://api.binance.com/api/v3/time'));
-      $serverTime = $time->serverTime;
-      $timeStamp = 'timestamp=' . $serverTime;
-      $signature = hash_hmac('SHA256', $timeStamp, $apiSecret);
-      $getall = json_decode(Http::withHeaders([
-        'X-MBX-APIKEY' => $apiKey
-      ])->get('https://api.binance.com/sapi/v1/capital/config/getall', [
-        'timestamp' => $serverTime,
-        'signature' => $signature
-      ]));
-      //dd($getall);
     }
     return view('binance.index', [
       'binance' => $binance,
@@ -90,7 +77,7 @@ class BinanceController extends Controller
     if (!$binance) {
       $binance = new Binance();
       $binance->user_id = $user->id;
-    } 
+    }
     $binance->api_key = $request->api_key;
     $binance->api_secret = $request->api_secret;
     $binance->save();

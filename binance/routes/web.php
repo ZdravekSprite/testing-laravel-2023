@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoinController;
 use App\Http\Controllers\BinanceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::middleware('auth')->group(function () {
 
   Route::get('/binance', [BinanceController::class, 'index'])->name('binance.index');
   Route::patch('/binance', [BinanceController::class, 'update'])->name('binance.update');
+
+  Route::get('/coins', [CoinController::class, 'index'])->name('coin.index');
 });
 
 require __DIR__ . '/auth.php';

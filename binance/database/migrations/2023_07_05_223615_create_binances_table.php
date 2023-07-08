@@ -16,6 +16,7 @@ return new class extends Migration
       $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
       $table->string('api_key')->nullable();
       $table->string('api_secret')->nullable();
+      $table->date('getall')->nullable();
       $table->timestamps();
     });
   }

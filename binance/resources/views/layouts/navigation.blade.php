@@ -18,6 +18,9 @@
           <x-nav-link :href="route('binance.index')" :active="request()->routeIs('binance.index')">
             {{ __('Binance') }}
           </x-nav-link>
+          <x-nav-link :href="route('coin.index')" :active="request()->routeIs('coin.index')">
+            {{ __('Coin') }}
+          </x-nav-link>
         </div>
       </div>
 
