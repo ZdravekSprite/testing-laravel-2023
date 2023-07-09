@@ -23,7 +23,7 @@
 
     <div>
       <x-input-label for="timeout" :value="__('Timeout')" />
-      <x-text-input id="timeout" name="timeout" type="integer" class="mt-1 block w-full" :value="old('timeout', $binance->timeout)" required autocomplete="timeout" />
+      <x-text-input id="timeout" name="timeout" type="number" class="mt-1 block w-full" :value="old('timeout', $binance->timeout)" required autocomplete="timeout" />
       <x-input-error class="mt-2" :messages="$errors->get('timeout')" />
     </div>
 

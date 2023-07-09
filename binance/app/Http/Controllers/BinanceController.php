@@ -163,6 +163,7 @@ class BinanceController extends Controller
     }
     $binance->api_key = $request->api_key;
     $binance->api_secret = $request->api_secret;
+    $binance->timeout = $request->timeout;
     $binance->save();
     //dd($request, $binance->first());
     return Redirect::route('binance.index')->with('status', 'binance-updated');

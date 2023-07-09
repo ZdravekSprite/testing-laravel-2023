@@ -186,5 +186,5 @@ php artisan make:model Earn -a
 ```
 
 ```bash
-git add . && git commit -am "Laravel 2023 Binance v0.3.0" && git push
+git add . && git commit -am "Laravel 2023 Binance v0.3.1" && git push
 ```
