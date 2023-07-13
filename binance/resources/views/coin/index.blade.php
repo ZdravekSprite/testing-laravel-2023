@@ -15,9 +15,22 @@
       <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
         <div class="max-w-xl">
           @if(count($coins) > 0)
-          @foreach($coins as $coin)
-          <p> {{$coin->name}}</p>
-          @endforeach
+          <table class="table-auto w-full">
+            <thead>
+              <tr>
+                <th class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __('Name') }}</th>
+                <th class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{ __('Trading') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($coins as $coin)
+              <tr>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{$coin->name}}</td>
+                <td class="mt-1 text-sm text-gray-600 dark:text-gray-400">{{$coin->trading}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
           @else
           <p> No coins found</p>
           @endif
